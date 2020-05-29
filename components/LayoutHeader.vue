@@ -18,6 +18,7 @@
             | <nuxt-link v-if="isLoggedIn=='true'" to="/login/logout">
                 <span class='el-icon-user' style='font-size:20px;margin-left:15px'></span>
                  Log Out {{username}} 
+                 <span  v-loading="loading" />
             </nuxt-link>
           </el-col>
     </el-row>
@@ -85,7 +86,8 @@ export default {
           item_cart_count:0,
           item_cart_amount:0,
           isLoggedIn: false,
-          username:''
+          username:'',
+          loading:true
       };
     },
     mounted: function(){
@@ -94,6 +96,7 @@ export default {
       this.isLoggedIn=cookie.get("logged_in")
       var user=cookie.get("user_info")
       this.username=cookie.get("username")
+      this.loading=false
     },
     methods: {
 
