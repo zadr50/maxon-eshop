@@ -46,7 +46,6 @@
                         <el-input type="" size="mini" v-model="quantity" :value="quantity" style="width:60px;font-size:15px;font-weight:900"/>
                         <el-button @click="incQty()" type="primary" size="mini">+</el-button>
                         <el-button @click="addCart()" type="primary" size="mini">Add Cart</el-button>
-                        <el-button @click="buy()" type="warning" size="mini">Buy</el-button>
                     </el-col>
                 </div>
             </el-col>    
