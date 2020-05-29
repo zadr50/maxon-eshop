@@ -1,35 +1,42 @@
 <template>
     <div>
-        <el-row>
+      <el-row>
+         <el-col :span=12 :xs=23>  
             <el-col>
                 <h1>
                     <span class="el-icon-back" @click="$router.back()"  />
                     <span class='el-icon-shopping-cart-2' />  
-                    Data Pesanan</h1>
-                </hr>
-                <p>Nomor Order# : <b>{{sales_order_number}}</b></p>
-                <p>Tanggal : {{sales_date}}</p>
-                <div style="font-size:14px;font-weight:900">
-                    <p><span v-html="customer" v-bind:key="customer"></span>
+                    Data Pesanan
+                </h1>
+                <el-col >
+                <el-card>              
+                    <p>Nomor Order# : <b>{{sales_order_number}}</b></p>
+                    <p>Tanggal : {{sales_date}}</p>
                     <p>Jasa Kirim: {{shipped_via}}</p>
-                </div>
-                <el-table :data="tableData" >
+                    <div>
+                        <p>YourId: {{sold_to_customer}}</p>
+                        <p>Alamat: </p>
+                        <p><span v-html="customer" v-bind:key="customer"></span></p>
+                    </div>
+                </el-card>
+                </el-col>
+                <el-table :data="tableData" v-show="false">
                     <el-table-column v-for="col in columns"  :label="col.label" :prop="col.field" 
                         v-bind:key="col"  v-model="tableColumn">
                     </el-table-column>
                 </el-table>
-                <p>Sub Total: {{sub_total}}</p>
-                <p>Ongkos Kirim: {{freight}}</p>
-                <p>Total Tagihan: <span style="font-size:24px" >{{amount}} </span></p>
+                <el-card>
+                <p>Sub Total Item: Rp. {{sub_total}}</p>
+                <p>Ongkos Kirim: Rp. {{freight}}</p>
+                </el-card>
+                <p>Total Tagihan: <span style="font-size:24px" >Rp. {{amount}} </span></p>
 
             </el-col>
-        </el-row>
-        <el-row>
             <el-col style="margin-top:20px">
                 <h2>Informasi Pembayaran</h2>
                 <div style="color:red">
                 <p>Silahkan lakukan pembayaran ke rekening dibawah ini: </p>
-                <p>Pembayaran belum masuk sampai maka besok orderan akan dibatalkan oleh sistim</p>
+                <p>Apabila pembayaran belum masuk sampai besok maka orderan akan dibatalkan oleh sistim</p>
                 </div>
                 <el-card>
                 <div  style="font-size:24px">
@@ -38,9 +45,9 @@
                 </div>
                 </el-card>
             </el-col>
-        </el-row>
-        
-    </div>
+         </el-col>
+    </el-row>        
+  </div>
 </template>
 <script>
 import axios from 'axios';
@@ -53,6 +60,7 @@ export default {
         return {
             sales_order_number:'',
             sales_date:'',
+            sold_to_customer:'',
             customer:'',
             address:'',
             shipped_via:'',
@@ -93,6 +101,7 @@ export default {
                 var d=Response.data
                 this.sales_order_number=d.sales_order_number
                 this.sales_date=d.sales_date
+                this.sold_to_customer=d.sold_to_customer
                 this.customer=d.customer_info
                 this.address=d.customer
                 this.shipped_via=d.shipped_via
