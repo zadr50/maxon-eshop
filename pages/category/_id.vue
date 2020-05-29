@@ -10,8 +10,9 @@
             <el-col v-for="item in items" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
                   <div class="divItem" >
-                    <div class='foto' style="text-align:center;cursor:pointer; " @click="boxItemClick(item.item_no)" >
-                    <img v-bind:src="'http://demo.maxonerp.com/tmp/'+item.icon_file" width="200" height="170"  />                                   
+                    <div class='foto' style="text-align:center;cursor:pointer; " 
+                        @click="boxItemClick(item.item_no)" >
+                    <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="200" height="170"  />                                   
                     </div>
                     <div class='item_name'>
                       <p>{{item.item_name}}</p>  
@@ -101,6 +102,10 @@ export default {
 
        }
 
-    }
+    },
+  computed: {
+       baseUrl() { return process.env.baseUrl},
+       siteUrl() { return process.env.siteUrl}      
+  }
 }
 </script>

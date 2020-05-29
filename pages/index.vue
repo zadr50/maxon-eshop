@@ -2,37 +2,25 @@
     <el-main>
       <el-row>
         <el-col :span="24" >
-          <i style='color:red'>Message: {{message}}</i>
+          <i style='color:red;height:50px'><b>{{message}}</b></i>
         </el-col>
       </el-row>
-      <el-row>        
-          <el-col :span="24">
-                <el-carousel indicator-position="inside" style="height:300px;text-align:center;">
-                  <el-carousel-item>
-                    <img src='~/assets/slider1.jpg' width="100%" height="270"/>
-                  </el-carousel-item>
-                  <el-carousel-item>
-                    <img src='~/assets/slider2.jpg' width="100%" height="270"/>
-                  </el-carousel-item>
-                  <el-carousel-item>
-                    <img src='~/assets/slider3.jpg' width="100%" height="270"/>
-                  </el-carousel-item>
-                  <el-carousel-item>
-                    <img src='~/assets/slider4.jpg' width="100%" height="270"/>
-                  </el-carousel-item>
-                </el-carousel>
+      <el-row> 
+          <el-col :span="24" >
+            <myslider/>
           </el-col>
       </el-row>
       <el-row>
         <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
             <span class='el-icon-position' /> Latest Products
         </el-col>
-        <el-col :span="24" >
-            <el-col v-for="item in items_latest" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
+        <el-col :span="24" v-loading="loading" >
+            <el-col  v-for="item in items_latest" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
                   <div class="divItem" >
-                    <div class='foto' style="text-align:center;cursor:pointer; " @click="boxItemClick(item.item_no)" >
-                    <img v-bind:src="'http://demo.maxonerp.com/tmp/'+item.icon_file" width="200" height="170"  />                                   
+                    <div class='foto' style="text-align:center;cursor:pointer; " 
+                      @click="boxItemClick(item.item_no)" >
+                    <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
                     </div>
                     <div class='item_name'>
                       <p>{{item.item_name}}</p>  
@@ -58,16 +46,16 @@
         <el-col style="height:300px;">   
           <el-carousel :interval="4000" type="card" height="200px">
               <el-carousel-item>
-                    <img src='~/assets/promo1.jpg' width="100%" height="180"/>
+                    <img v-bind:src="siteUrl+'tmp/promo1.jpg'" width="100%" height="180"/>
               </el-carousel-item>
               <el-carousel-item>
-                    <img src='~/assets/promo2.jpg' width="100%" height="180"/>
+                    <img v-bind:src="siteUrl+'tmp/promo2.jpg'" width="100%" height="180"/>
               </el-carousel-item>
               <el-carousel-item>
-                    <img src='~/assets/promo3.jpg' width="100%" height="180"/>
+                    <img v-bind:src="siteUrl+'tmp/promo3.jpg'" width="100%" height="180"/>
               </el-carousel-item>
               <el-carousel-item>
-                    <img src='~/assets/promo4.jpg' width="100%" height="180"/>
+                    <img v-bind:src="siteUrl+'tmp/promo4.jpg'" width="100%" height="180"/>
               </el-carousel-item>
             </el-carousel>
         </el-col>
@@ -78,22 +66,27 @@
         </el-col>
         <el-col :span="24" >
             <el-col v-for="item in items_features" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
-              <el-card class="box-item">
-                 <div class='foto' style="text-align:center">
-                    <img v-bind:src="'http://demo.maxonerp.com/tmp/'+item.icon_file" width="200" height="170"  />                                   
-                 </div>
-                 <div class='item_name'>
-                   <p>{{item.item_name}}</p>  
-                 </div>
-                 <div class="item_foot">
-                    <div class="sku">
-                      <p>{{item.item_no}}</p>
+              <el-card class="box-item" >
+                  <div class="divItem" >
+                    <div class='foto' style="text-align:center;cursor:pointer; " 
+                      @click="boxItemClick(item.item_no)" >
+                    <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
                     </div>
-                    <div class="price">
-                      <p>{{item.item_price}}</p>
+                    <div class='item_name'>
+                      <p>{{item.item_name}}</p>  
                     </div>
-                 </div>
+                    <div class="item_foot">
+                        <div class="sku">
+                          <p>{{item.item_no}}</p>
+                        </div>
+                        <div class="price">
+                          <p>{{item.item_price}}</p>
+                        </div>
+                    </div>
+                  </div>
+                  
               </el-card>
+
             </el-col>            
         </el-col>
       </el-row>
@@ -104,12 +97,13 @@
 <script>
 import axios from 'axios'
 import cookie from 'vue-cookie'
+import myslider from '~/components/Slider'
 
 export default {
     head: {
       title: 'MaxonErp Online Shop'
     },
-    components: {
+    components: { myslider
     },
     data() {
       return {
@@ -117,25 +111,17 @@ export default {
         upHere:false,
         items_latest: null,
         items_features:null,
+        loading: true
       }
     },
     methods: {
        boxItemClick(item_no){
          window.open("item/view/"+item_no,"_self");
        },
-       getProductImage(img) {
-          let defaultImage = "no_image.png" // just set default
-          try {
-            require(`../assets/${img}`);
-            return img;
-          } catch (e) {
-            this.$toast.show(e)
-            return defaultImage
-          }
-      },
        loadItemLatest(){
         var vUrl='/api/inventory/browse_data/?supplier=beads';
-        this.$toast.show("Execute...please wait!");
+        //this.$toast.show("Execute...please wait!");
+        this.message="Loading..."
         axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
@@ -150,6 +136,9 @@ export default {
 
                 //this.$refs.pagination.total=Response.data.rows.length/10
                 this.$toast.clear();
+                this.loading=false
+                this.message=""
+
             })
             .catch((err) => {
                 this.$toast.show(err);
@@ -185,7 +174,16 @@ export default {
     },
     created: function () {
 
+    },
+    computed: {
+       baseUrl() { return process.env.baseUrl},
+       siteUrl() { return process.env.siteUrl}      
+    },
+    complete() {
+
     }
+
+
 
   };
 </script>

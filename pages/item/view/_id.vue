@@ -1,24 +1,28 @@
 <template>
     <div>
+        <h1>
+            <span class="el-icon-back" @click="$router.back()"  />
+            View Item
+        </h1>
         <el-row>
-            <el-col :span="10" :xs="23" style="margin-top:10px;height:400px;">
+            <el-col :span="10" :xs="23" style="margin-top:10px;">
                 <el-col :span=18>
                 <el-row style="height:290px;border:1px solid lightgray;margin-bottom:10px;border-radius:10px;text-align:center;padding-top:20px">
-                    <img :src="'http://demo.maxonerp.com/tmp/'+form.item_picture" width="90%" height="90%" />
+                    <img :src="siteUrl+'tmp/'+form.item_picture" width="90%" height="90%" />
                 </el-row>
                 </el-col>
-                <el-col :span=4 style="padding:10px;background:lightgray;text-align:center;margin-left:10px">
+                <el-col :span=5 style="padding:10px;background:lightgray;text-align:center;margin-left:10px">
                     <el-col :span=23>
-                       <img :src="'http://demo.maxonerp.com/tmp/'+form.item_picture" width="90%" height="60" />
+                       <img :src="siteUrl+'tmp/'+form.item_picture" width="90%" height="60" />
                     </el-col>
                     <el-col :span=23>
-                        <img :src="'http://demo.maxonerp.com/tmp/'+form.item_picture2"  width="90%" height="60" />
+                        <img :src="siteUrl+'tmp/'+form.item_picture2"  width="90%" height="60" />
                     </el-col>
                     <el-col :span=23>
-                        <img :src="'http://demo.maxonerp.com/tmp/'+form.item_picture3"  width="90%" height="60" />
+                        <img :src="siteUrl+'tmp/'+form.item_picture3"  width="90%" height="60" />
                     </el-col>
                     <el-col :span=23>
-                        <img :src="'http://demo.maxonerp.com/tmp/'+form.item_picture4"  width="90%" height="60" />
+                        <img :src="siteUrl+'tmp/'+form.item_picture4"  width="90%" height="60" />
                     </el-col>
                 </el-col>
             </el-col>
@@ -115,7 +119,7 @@ export default {
                         cookie.set("order_no",this.order_no)
                     }           
                     this.$toast.show("Success data sudah ditambahkan di kantong belanja anda")
-                    window.open("/","_self")
+                    window.open("/cart","_self")
 
                 })
                 .catch((err) => {
@@ -145,6 +149,11 @@ export default {
     mounted(){
         this.order_no=cookie.get("order_no")
         this.loadItem()
+    },
+    computed: {
+       baseUrl() { return process.env.baseUrl},
+       siteUrl() { return process.env.siteUrl}      
     }
+
 }
 </script>

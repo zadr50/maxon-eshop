@@ -1,11 +1,29 @@
 <template>
   <div>
-    <div v-if="$device.isMobile">
-			<layout-mobile/>
-		</div>
-		<div v-else>
-			<layout-desktop/>
-		</div>
+    <el-row>
+      <el-col :span=24 style="color: white;background: linear-gradient(-180deg,#b603c1,#e014ec);">
+        <div >
+          <LayoutHeader/>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span=24>
+        <div v-if="$device.isMobile">
+          <layout-mobile/>
+        </div>
+        <div v-else>
+          <layout-desktop/>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span=24>
+        <div style="display:block;background:lightgray;color:black">
+          <LayoutFooter/>
+        </div>
+     </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -16,6 +34,8 @@
   import LayoutDesktop from '~/components/LayoutDesktop.vue'
   import LayoutMobile from '~/components/LayoutMobil.vue'
   import LayoutTablet from '~/components/LayoutTablet.vue'
+  import LayoutFooter from '~/components/LayoutFooter'
+  import LayoutHeader from '~/components/LayoutHeader'
 
   export default {
     data() {
@@ -24,6 +44,7 @@
       };
     },
     components:{
+      LayoutHeader,LayoutFooter,
       "app-sidebar":Menu,
       'layout-desktop':LayoutDesktop,
       'layout-mobile':LayoutMobile,
@@ -86,9 +107,6 @@ html {
   background-color: #35495e;
 }
 .el-header {
-    color: white;
-    background: linear-gradient(-180deg,#b603c1,#e014ec);
-    height: 90px;    
 }
 .el-menu-item a {
     color: white;

@@ -2,8 +2,10 @@
     <div style="margin-top:20px">
       <div>
         <div>
-        <span class='el-icon-shopping-cart-2' style='float:left;font-size:30px;;margin-left:15px' />  
-        <h1>Kantong Belanjaan Saya (Cart)</h1>
+        <h1>
+        <span class="el-icon-back" @click="$router.back()"  />
+        <span class='el-icon-shopping-cart-2' />  
+            Kantong Belanjaan Saya (Cart)</h1>
         <p>
             Silahkan periksa daftar belanjaan anda dihalaman ini dan apabila sudah benar silahkan 
             klik tombol [Checkout] dibagian bawah
@@ -14,7 +16,7 @@
             <el-col :span=10 v-for="item in items" v-bind:key="item.line_number" >
             <el-card style="margin:10px;height:120px">
                 <el-col :span=7 style=''>
-                    <img :src="'http://demo.maxonerp.com/tmp/'+item.item_picture" width="80" height="80" />                    
+                    <img :src="siteUrl+'tmp/'+item.item_picture" width="80" height="80" />                    
                 </el-col>
                 <el-col :span=15>
                     <p>{{item.description}}</p>
@@ -31,23 +33,26 @@
             </el-col>
         </el-row>
         <el-row>
+          <el-card>  
             <h1><span class='el-icon-bicycle'/> Alamat Kirim</h1>
             <p>Silahkan isi alamat kirim dibawah ini apabila belum terisi alamat kirim 
                 silahkan login terlebih dahulu dan isi alamat kirim anda.</p>
-
-            <el-alert type="success">
-                <div v-html="alamat" /> 
-            </el-alert>
-            <el-col style="margin-top:20px;margin-bottom:20px">
-                <el-button type="primary" @click="profile"> My Profile</el-button>
-            </el-col>
+            <p v-html="alamat" style="margin-top:20px" ></p>
+            <el-button type="primary" @click="profile" style="margin-top:20px"> My Profile</el-button>
+          </el-card>    
         </el-row>
         <el-row>
-            <h1><span class='el-icon-bicycle'/> Jasa Pengiriman</h1>
-            <p>Sebelum klik checkout silahkan pilih jasa pengiriman yang ingin anda gunakan</p>
-            <el-col style="margin-top:20px;margin-bottom:20px">
-                <el-button type="primary" @click="checkout"> Checkout </el-button>
-            </el-col>
+          <el-card>
+                <h1><span class='el-icon-bicycle'/> Jasa Pengiriman</h1>
+                <p>Sebelum klik checkout silahkan pilih jasa pengiriman yang ingin anda gunakan</p>
+                <p  style="margin-top:20px" >
+                <el-radio v-model="radio_ship_via" label="1" @change="ship_type">TIKI</el-radio>
+                <el-radio v-model="radio_ship_via" label="2" @change="ship_type">JNE</el-radio> 
+                </p>
+            </el-card>
+        </el-row>
+        <el-row>
+            <el-button type="primary" @click="checkout" style="margin-top:20px"> Checkout </el-button>
         </el-row>
       </div>
     </div>
@@ -64,17 +69,21 @@ export default {
     },
     data() {
       return {
+        radio_ship_via: "1",  
+        ship_via:'1',
         alamat:'Loading alamat....',  
         message:'',
         nomor_so:'',
         user_id:'',
-        ship_via:'',
         ship_address:'',
         items: null,
         message_cart: '',
       }
     },
     methods: {
+        ship_type(){
+            this.ship_via=this.radio_ship_via
+        },
         loadUser(){
             var vUrl='/api/user/info/'+this.user_id;
             axios.get(vUrl)
@@ -134,10 +143,19 @@ export default {
             .catch(_ => {});
        },
        checkout(){
-           if(this.user_id=="" || this.logged_in=="false" || this.nomor_so==""){
+           if(this.user_id=="" || this.user_id==null || this.logged_in==false || this.nomor_so==""){
                this.$toast.show("Silahkan login terlebih dahulu dan isi alamat pengiriman anda !");
-               window.open("/login","_self")               
-           } else {
+               window.open("/login","_self") 
+               return               
+            } 
+            this.ship_via=this.radio_ship_via
+            if(this.ship_via==null || this.ship_via==""){
+                this.$toast.show("Pilih jasa pengiriman !").goAway(6000);;
+                return 
+            }
+            if(this.shipp_via=="1")this.ship_via="TIKI";
+            if(this.ship_via=="2")this.ship_via="JNE";
+        
             this.message="Execute...please wait!"        
             var vUrl='/api/sales_order/checkout/'+this.nomor_so
             const formData = new FormData()
@@ -145,17 +163,27 @@ export default {
             formData.append("sold_to_customer",this.user_id)
             formData.append("shipped_via",this.ship_via)
             axios.post(vUrl,formData)
-                .then((Response) => {
+            .then((Response) => {
+                var d=Response.data;
+                if(d.success){
                     this.$toast.show("Success.. silahkan lakukan pembayaran");
-                    window.open("/payment","_self")
-                })
-                .catch((err) => {
-                    this.$toast.show(err);
-                })               
-           }
+                    window.open("/checkout","_self")
+                } else {
+                    $this.$toast.show(d.msg).goAway(6000);
+                }
+            })
+            .catch((err) => {
+                this.$toast.show("Error").goAway(6000);
+            })               
+           
        },
        profile(){
-           window.open("/profile","_self")
+           if(this.user_id=="" || this.user_id==null || this.logged_in==false || this.nomor_so==""){
+               this.$toast.show("Silahkan login terlebih dahulu dan isi alamat pengiriman anda !");
+               window.open("/login","_self")               
+            } else {
+               window.open("/profile","_self")
+            }
        }
     },
     mounted() {
@@ -163,8 +191,12 @@ export default {
       this.loadUser()
       this.item_cart_count=cookie.get("order_item_count",0)
       this.item_cart_amount=cookie.get("order_item_amount",0)
+      
     },
-
+    computed: {
+       baseUrl() { return process.env.baseUrl},
+       siteUrl() { return process.env.siteUrl}      
+    },
     updated: function () {
        
     },

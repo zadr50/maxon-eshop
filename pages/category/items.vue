@@ -14,6 +14,11 @@ export default {
     },
     methods: {
         
+    },
+    computed: {
+       baseUrl() { return process.env.baseUrl},
+       siteUrl() { return process.env.siteUrl}      
     }
+
 }
 </script>
