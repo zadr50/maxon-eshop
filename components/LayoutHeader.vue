@@ -61,7 +61,6 @@
    
    <el-drawer
         title="Drawer" size="50%"
-        :direction="ltr"
         :visible.sync="drawer"
         :with-header="true">
         <div style="heigth:500px;overflow-y:scroll">

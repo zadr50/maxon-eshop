@@ -35,6 +35,8 @@ import cookie from "vue-cookie"
     data() {
       return {
         message:'',
+        item_cart_count:0,
+        item_cart_amount:0
       };
     },
     mounted: function(){
