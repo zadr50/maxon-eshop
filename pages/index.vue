@@ -2,6 +2,7 @@
     <el-main>
       <el-row>
         <el-col :span="24" >
+          <span  v-loading="loading"  />
           <i style='color:red;height:50px'><b>{{message}}</b></i>
         </el-col>
       </el-row>
