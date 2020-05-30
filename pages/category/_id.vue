@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     head: {
@@ -82,7 +81,7 @@ export default {
         var vUrl='/api/inventory/browse_data/?page='+this.page+'&sid_cat='+cat;
         this.message="Execute...please wait!"
         this.$toast.show(this.message);
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
                 var data=[];

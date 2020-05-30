@@ -33,9 +33,7 @@
 </template>
 
 <script>
-
 import cookie from 'vue-cookie'
-import axios from 'axios'
 
 export default {
     head: {
@@ -62,7 +60,7 @@ export default {
         var vUrl='/api/user/info/'+this.form.user_id;
         this.message="Execute...please wait!"
         
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 var d  = Response.data;
                 this.message="Ready"
@@ -87,7 +85,7 @@ export default {
         this.message="Execute... please wait"
         var vUrl='/api/user/save_json';
 
-        axios.post(vUrl,formData)
+        this.$axios.post(vUrl,formData)
             .then((Response) => {
                 if(Response.data.success){
                     this.message=Response.data.msg;

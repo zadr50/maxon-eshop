@@ -33,7 +33,6 @@
 
 <script>
 //.filter(data => !search || data.supplier_name.toLowerCase().includes(search.toLowerCase()))
-import axios from 'axios'
 
 export default {
     props: {
@@ -72,7 +71,7 @@ export default {
         },
         load_items() {
             var vUrl='/api/inventory/browse_data/'+this.page+'?json=true&tb_search='+this.search;
-            axios.get(vUrl)
+            this.$axios.get(vUrl)
             .then((Response) => {
                 this.tableData = Response.data.rows;
                 this.message="Ready.";

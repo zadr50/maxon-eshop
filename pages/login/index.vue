@@ -37,7 +37,7 @@
         </form>
       </el-card>
     </el-col>
-    <el-col :md="5" class="text-center pt-4" v-show="true">
+    <el-col :md="5" class="text-center pt-4" v-show="false">
         <el-card title="Social Login" bg-variant="light">
           <div v-for="s in strategies" :key="s.key" class="mb-2">
           <el-button @click="loginWith" block :style="{background: s.color}" size="mini" 
@@ -59,7 +59,6 @@
 </style>
 
 <script>
-import axios from 'axios'
 import cookie from 'vue-cookie'
 export default {
   middleware: [],
@@ -102,7 +101,7 @@ export default {
       this.message="Execute...please wait!"        
       this.$toast.show(this.message)
       var vUrl='/api/user/login/'+this.username+"/"+this.password;
-      axios.get(vUrl)
+      this.$axios.get(vUrl)
         .then((Response) => {
             var d=Response.data;
             if(d.success){
@@ -134,7 +133,7 @@ export default {
 
 
       var vUrl='/api/user/save_json';
-      axios.post(vUrl,formData)
+      this.$axios.post(vUrl,formData)
         .then((Response) => {
             var d=Response.data;
             if(d.success){

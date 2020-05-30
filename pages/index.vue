@@ -18,7 +18,6 @@
         <el-col :span="24" v-loading="loading" >
             <el-col  v-for="item in items_latest" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
-                  <div class="divItem" >
                     <div class='foto' style="text-align:center;cursor:pointer; " 
                       @click="boxItemClick(item.item_no)" >
                     <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
@@ -34,8 +33,6 @@
                           <p>Rp.{{Number(item.item_price).toLocaleString()}}</p>
                         </div>
                     </div>
-                  </div>
-                  
               </el-card>
             </el-col>            
         </el-col>
@@ -68,7 +65,6 @@
         <el-col :span="24" >
             <el-col v-for="item in items_features" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
-                  <div class="divItem" >
                     <div class='foto' style="text-align:center;cursor:pointer; " 
                       @click="boxItemClick(item.item_no)" >
                     <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
@@ -84,10 +80,7 @@
                           <p>Rp.{{Number(item.item_price).toLocaleString()}}</p>
                         </div>
                     </div>
-                  </div>
-                  
               </el-card>
-
             </el-col>            
         </el-col>
       </el-row>
@@ -101,7 +94,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import cookie from 'vue-cookie'
 import myslider from '~/components/Slider'
 
@@ -136,7 +128,7 @@ export default {
         var vUrl='/api/inventory/browse_data/?supplier=beads';
         //this.$toast.show("Execute...please wait!");
         this.message="Loading..."
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
                 var data=[];
@@ -161,7 +153,7 @@ export default {
        loadItemFeatures(){
          this.message_next="Loading page " + this.page + "..."
         var vUrl='/api/inventory/browse_data/?stat=features&page=' + this.page;
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
                   if(this.page==1){
@@ -256,7 +248,7 @@ export default {
     float: left;
     margin-right: 10px;
 }
-.divItem .foto :hover {
-  border:1px solid gray;
+.box-item :hover {
+    background: lightgray;
 }
 </style>

@@ -72,7 +72,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   
   export default {
     head: {
@@ -121,7 +120,7 @@
         this.$confirm('Are you sure delete this supplier ?')
           .then(_ => {
           var vUrl='/api/supplier/delete/'+this.tableData[index].supplier_number;
-          axios.get(vUrl)
+          this.$axios.get(vUrl)
             .then((Response) => {
                 this.message=Response.data.msg;
                 //done();
@@ -149,7 +148,7 @@
         var vUrl='/api/supplier/browse_data/'+this.page;
         this.message="Execute...please wait!"
         
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 this.tableData = Response.data.rows;
                 this.pagination.total=Response.data.rows.length/10
@@ -170,7 +169,7 @@
 
         var vUrl='/api/supplier/save';
 
-        axios.post(vUrl,formData)
+        this.$axios.post(vUrl,formData)
             .then((Response) => {
                 //this.showAlert=true;
                 //this.$refs.alert="dddddddddddddddd";

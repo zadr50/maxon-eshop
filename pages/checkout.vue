@@ -50,7 +50,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import cookie from 'vue-cookie'
 export default {
     head: {
@@ -95,7 +94,7 @@ export default {
             this.message="Execute...please wait!"        
             this.$toast.show(this.message)
             var vUrl='/api/sales_order/view/'+this.sales_order_number+"?json=true"
-            axios.get(vUrl)
+            this.$axios.get(vUrl)
             .then((Response) => {         
                 this.$toast.clear()       
                 var d=Response.data

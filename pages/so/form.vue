@@ -4,9 +4,7 @@
     </div>
 </template>
 
-<script>
-  import axios from 'axios';
-  
+<script>  
   export default {
     head: {
       title: 'Sales Order View'

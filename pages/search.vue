@@ -37,7 +37,7 @@
           </el-col>
           <el-col :span=23>
               <el-button @click="prevPage" type="primary"> <span class='el-icon-back'/> Back</el-button>
-              <el-input v-model="page" style="width:100px" />
+              Page: <el-input v-model="page" style="width:100px" />
               <el-button @click="nextPage" type="primary">Next  <span class='el-icon-right'/></el-button>
           </el-col>
         </el-row>
@@ -45,7 +45,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import cookie from 'vue-cookie'
 
 
@@ -88,7 +87,7 @@ export default {
         this.$toast.clear()
         this.message="Execute...please wait!"
         this.$toast.show(this.message);
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
                 var data=[];

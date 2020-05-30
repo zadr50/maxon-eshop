@@ -4,8 +4,7 @@
           <el-col :span='10' :xs=24 :sm=14>
             <el-row>
               <el-col :span=10 :xs=23 :sm=11>
-                <span @click="drawer = true" class="el-icon-notebook-2" style="font-size:20px"/>  
-                | <span class='el-icon-phone-outline' style='font-size:20px'></span> Phone: +62-087874006900
+                <span class='el-icon-phone-outline' style='font-size:20px'></span> Phone: +62-087874006900
               </el-col>
               <el-col :span=13 :xs=23 >
                 | <span class='el-icon-shopping-cart-2' style='font-size:20px;'></span> 
@@ -21,6 +20,8 @@
                 <span class='el-icon-user' style='font-size:20px;margin-left:15px'></span>
                  Log Out {{username}} 
             </nuxt-link>
+             <span @click="drawer = true" class="el-icon-notebook-2" style="font-size:20px"/>  
+
           </el-col>
     </el-row>
     <el-header >

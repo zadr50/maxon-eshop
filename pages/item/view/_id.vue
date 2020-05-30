@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import cookie from 'vue-cookie'
 export default {
     head: {
@@ -104,10 +103,9 @@ export default {
             formData.append("sales_order_number",this.order_no);
 
             var vUrl='/api/sales_order/save_item/';
-            axios.post(vUrl,formData)
+            this.$axios.post(vUrl,formData)
                 .then((Response) => {
                     this.form = Response.data;
-                    console.log(this.form)
                     cookie.set("order_item_count",Response.data.item_count)
                     cookie.set("order_item_amount",Response.data.item_amount)
                     if(this.order_no==""){
@@ -132,7 +130,7 @@ export default {
         loadItem(){
             this.$toast.show("Execute...please wait!");
             var vUrl='/api/inventory/find/'+this.id;
-            axios.get(vUrl)
+            this.$axios.get(vUrl)
                 .then((Response) => {
                     this.form = Response.data;
                     this.$toast.clear();

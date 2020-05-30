@@ -35,7 +35,7 @@ export default {
       loadItemsLatest(){
         var vUrl='/api/inventory/browse_data/?sid_latest=true';
         this.message="Execute...please wait!"
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
                 var data=[];

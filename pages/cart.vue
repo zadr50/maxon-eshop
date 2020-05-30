@@ -77,7 +77,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import cookie from 'vue-cookie'
 
 export default {
@@ -115,7 +114,7 @@ export default {
             this.message="Execute...please wait!"        
             this.$toast.show(this.message)
             var vUrl='/api/sales_order/view/'+this.nomor_so+"?json=true"
-            axios.get(vUrl)
+            this.$axios.get(vUrl)
             .then((Response) => {         
                 this.$toast.clear()       
                 var d=Response.data
@@ -139,7 +138,7 @@ export default {
         },
         loadUser(){
             var vUrl='/api/user/info/'+this.user_id;
-            axios.get(vUrl)
+            this.$axios.get(vUrl)
                 .then((Response) => {
                     var d=Response.data
                     if (d.success){
@@ -167,7 +166,7 @@ export default {
        loadCartRun(){
         var vUrl='/api/sales_order/cart/'+this.nomor_so;
         this.$toast.show("Execute...please wait!");
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 this.$toast.clear();
                 this.items = Response.data.rows;
@@ -186,7 +185,7 @@ export default {
             .then(_ => {
             this.message="Execute...please wait!"        
             var vUrl='/api/sales_order/delete_item/'+line_number;
-            axios.get(vUrl)
+            this.$axios.get(vUrl)
                 .then((Response) => {
                     this.$toast.clear();
                     this.loadCartRun();
@@ -223,7 +222,7 @@ export default {
             formData.append("sales_order_number",this.nomor_so);
             formData.append("sold_to_customer",this.user_id)
             formData.append("shipped_via",this.ship_via)
-            axios.post(vUrl,formData)
+            this.$axios.post(vUrl,formData)
             .then((Response) => {
                 var d=Response.data;
                 if(d.success){

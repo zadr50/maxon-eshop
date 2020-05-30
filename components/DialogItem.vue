@@ -48,7 +48,6 @@
 
 import { mapActions, mapState, mapMutations } from 'vuex'
 import LookupData from '~/components/LookupData'
-import axios from 'axios'
 
 export default {
     name:"DialogItem",
@@ -112,7 +111,7 @@ export default {
           vUrl=this.url_save
         } 
 
-        axios.post(vUrl,formData)
+        this.$axios.post(vUrl,formData)
             .then((Response) => {
                 if(Response.data.success){
                   this.dialogVisible=false;
@@ -139,7 +138,7 @@ export default {
           this.message="Searching item..."
           this.item.item_number=item
           var vUrl='/api/inventory/find/'+this.item.item_number;
-          axios.get(vUrl)
+          this.$axios.get(vUrl)
             .then((Response) => {
                 this.message="Found item"
                 var d=Response.data

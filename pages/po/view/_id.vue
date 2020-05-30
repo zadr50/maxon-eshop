@@ -69,7 +69,6 @@
 
 <script>
 
-  import axios from 'axios'
   import DialogItem from "~/components/DialogItem.vue";
 
   export default {
@@ -125,7 +124,7 @@
 
         var vUrl='/api/purchase_order/save';
         this.message="Saving..."
-        axios.post(vUrl,formData)
+        this.$axios.post(vUrl,formData)
             .then((Response) => {
               console.log(Response);
               if(Response.data.success){
@@ -148,7 +147,7 @@
           .then(_ => {
           var vUrl='/api/purchase_order/delete/'+this.form.purchase_order_number;
           this.message="Delete...please wait !"
-          axios.get(vUrl)
+          this.$axios.get(vUrl)
             .then((Response) => {
                 this.message=Response.data.msg;
                 window.open("/api/purchase_order","_self");
@@ -163,7 +162,7 @@
         var vUrl='/api/purchase_order/view/'+this.form.purchase_order_number+"?json=true";
         this.message="Loading...please wait !"
         this.$toast.show(this.message)
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
         .then((Response) => {
             this.form.purchase_order_number = Response.data.purchase_order_number;
             this.form.po_date=Response.data.po_date;
@@ -186,7 +185,7 @@
       loadItems(){
         this.message="Loading...";
         var vUrl='/api/purchase_order/items/'+this.form.purchase_order_number+"?json=true";
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
           .then((Response) => {
               this.tableData = Response.data.rows;
               this.message="Ready.";
@@ -250,7 +249,7 @@
         } 
 
         this.message="Saving...please wait!";
-        axios.post(vUrl,formData)
+        this.$axios.post(vUrl,formData)
           .then((Response) => {              
               this.loadItems();
               this.message="Ready"  ;
@@ -264,7 +263,7 @@
           .then(_ => {
             this.message="Processing...please wait!"
           var vUrl='/api/purchase_order/delete_item/'+this.tableData[index].line_number;
-          axios.get(vUrl)
+          this.$axios.get(vUrl)
             .then((Response) => {
                 this.message=Response.data.msg;
                 this.loadItems();

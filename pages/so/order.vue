@@ -71,7 +71,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   
   export default {
     head: {
@@ -117,7 +116,7 @@
           .then(_ => {
           var vUrl='/api/sales_order/delete/'+this.tableData[index].sales_order_number;
           this.message="Execute...please wait!"        
-          axios.get(vUrl)
+          this.$axios.get(vUrl)
             .then((Response) => {
                 this.message=Response.data.msg;
                 this.loadData();
@@ -139,7 +138,7 @@
       loadData(){
         this.message="Execute...please wait!"        
         var vUrl='/api/sales_order/browse_data/'+this.page+"?sid_date_from="+this.date1+"&sid_date_to="+this.date2;
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 this.tableData = Response.data.rows;
                 this.message="Ready"
@@ -164,7 +163,7 @@
 
         var vUrl='/api/sales_order/save';
         this.message="Execute...please wait!"        
-        axios.post(vUrl,formData)
+        this.$axios.post(vUrl,formData)
             .then((Response) => {
               console.log(Response);
               if(Response.data.success){
@@ -192,7 +191,7 @@
       },
       CustomerListLoad(){
         var vUrl='/api/customer/browse_data/1/1000';
-        axios.get(vUrl)
+        this.$axios.get(vUrl)
             .then((Response) => {
                 this.CustomerList = Response.data.rows;
             })

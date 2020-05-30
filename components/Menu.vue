@@ -32,7 +32,6 @@
                 </div>
 </template>
 <script>
-import axios from 'axios'
 import cookie from "vue-cookie"
 
   export default {
