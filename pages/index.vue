@@ -31,7 +31,7 @@
                           <p>{{item.item_no}}</p>
                         </div>
                         <div class="price">
-                          <p>{{item.item_price}}</p>
+                          <p>Rp.{{Number(item.item_price).toLocaleString()}}</p>
                         </div>
                     </div>
                   </div>
@@ -81,7 +81,7 @@
                           <p>{{item.item_no}}</p>
                         </div>
                         <div class="price">
-                          <p>{{item.item_price}}</p>
+                          <p>Rp.{{Number(item.item_price).toLocaleString()}}</p>
                         </div>
                     </div>
                   </div>
@@ -91,7 +91,12 @@
             </el-col>            
         </el-col>
       </el-row>
-      
+      <el-row>
+        <el-col>
+          <el-button type="primary" @click="nextPage"> Halaman Selanjutnya</el-button>
+          <span>{{message_next}}</span>
+        </el-col>
+      </el-row>
     </el-main>
 </template>
 
@@ -104,10 +109,13 @@ export default {
     head: {
       title: 'MaxonErp Online Shop'
     },
-    components: { myslider
+    components: { 
+      myslider
     },
     data() {
       return {
+        message_next:"",
+        page:1,
         message:'',
         upHere:false,
         items_latest: null,
@@ -116,6 +124,11 @@ export default {
       }
     },
     methods: {
+      nextPage(){
+        this.page++
+        this.message="Page: " + this.page
+        this.loadItemFeatures()
+      },
        boxItemClick(item_no){
          window.open("item/view/"+item_no,"_self");
        },
@@ -146,18 +159,31 @@ export default {
             })
        },
        loadItemFeatures(){
-        var vUrl='/api/inventory/browse_data/?stat=features';
+         this.message_next="Loading page " + this.page + "..."
+        var vUrl='/api/inventory/browse_data/?stat=features&page=' + this.page;
         axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
-                var data=[];
-                for(var i=0;i<o.length;i++){
-                  data.push(
-                     {item_no:o[i].item_number,item_name:o[i].description,
-                     item_price:o[i].retail,icon_file: o[i].item_picture}
-                  )
+                  if(this.page==1){
+                  var data=[];
+                  for(var i=0;i<o.length;i++){
+                    data.push(
+                      {item_no:o[i].item_number,item_name:o[i].description,
+                      item_price:o[i].retail,icon_file: o[i].item_picture}
+                    )
+                  }
+                  this.items_features=data
+                  this.message_next=""
+
+                } else {
+                  for(var i=0;i<o.length;i++){
+                    this.items_features.push(
+                      {item_no:o[i].item_number,item_name:o[i].description,
+                      item_price:o[i].retail,icon_file: o[i].item_picture}
+                    )
+                  }
+                  this.message_next=""
                 }
-                this.items_features=data
             })
             .catch((err) => {
                 this.$toast.show(err);

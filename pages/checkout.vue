@@ -26,10 +26,10 @@
                     </el-table-column>
                 </el-table>
                 <el-card>
-                <p>Sub Total Item: Rp. {{sub_total}}</p>
-                <p>Ongkos Kirim: Rp. {{freight}}</p>
+                <p>Sub Total Item: Rp. {{Number(sub_total).toLocaleString()}}</p>
+                <p>Ongkos Kirim: Rp. {{Number(freight).toLocaleString()}}</p>
                 </el-card>
-                <p>Total Tagihan: <span style="font-size:24px" >Rp. {{amount}} </span></p>
+                <p>Total Tagihan: <span style="font-size:24px" >Rp. {{Number(amount).toLocaleString()}} </span></p>
 
             </el-col>
             <el-col style="margin-top:20px">

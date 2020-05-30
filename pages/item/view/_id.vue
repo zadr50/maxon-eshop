@@ -37,7 +37,7 @@
                     <div class="sku" style="height:50px;padding:10px;width:100%;">
                         <div class="sku_id" style="float:left">{{form.item_number}}</div>
                         <div class="sku_price" style="text-align:right;color:red;width:70%;font-size:15px;font-weight:900">
-                            Rp. {{form.retail}},-</div>
+                            Rp. {{Number(form.retail).toLocaleString()}},-</div>
                     </div>
                 </div>
                 <div class="buy">

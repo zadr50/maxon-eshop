@@ -1,16 +1,18 @@
 <template>
-<div>
+<div >
   <div style="margin-right:15px;float:left"><span  class='el-icon-position' style="font-size:40px" /></div>
   <div style="margin-bottom:20px">
-  <h2 class="text-center" >Login</h2>
-  <p>Silahkan isi login anda dibawah ini dan isi password dengan benar</p>
+    <h2 class="text-center" >Login</h2>
+    <p>Silahkan isi login anda dibawah ini dan isi password dengan benar</p>
   </div>
   
   <el-alert v-if="error" show variant="danger">{{ error + '' }}</el-alert>
   <el-alert show v-if="redirect">
     You have to login before accessing to <strong>{{ redirect }}</strong>
   </el-alert>
-  <el-row align-h="center" align-v="center">
+
+
+  <el-row align-h="center" align-v="center" >
     <el-col :span="10">
       <el-card bg-variant="light">
         <busy-overlay />
@@ -25,15 +27,17 @@
           <el-input type="password" v-model="password" placeholder="123" />
         </el-form-group>
 
-        <div class="text-center" style="margin-top:15px">
-          <el-button @click="login" type="primary" block>Login</el-button>
-        </div>
+        <el-col class="text-center" style="margin-top:15px;margin-bottom:10px" center>
+          <el-col :span=15>
+          <el-button @click="signup" type="warning" block> Sign Up</el-button>
+          </el-col>
+          <el-button @click="login" type="primary" block> Login</el-button>
+        </el-col>
         <div style='color:red'>{{message}}</div>
         </form>
       </el-card>
     </el-col>
-    <el-col :md="5" class="text-center pt-4" v-show="false">
-        <div class="text-center"><el-badge pill>OR</el-badge></div>
+    <el-col :md="5" class="text-center pt-4" v-show="true">
         <el-card title="Social Login" bg-variant="light">
           <div v-for="s in strategies" :key="s.key" class="mb-2">
           <el-button @click="loginWith" block :style="{background: s.color}" size="mini" 
@@ -91,7 +95,12 @@ export default {
     },
     login() {
       this.error = null
+      if(this.username=="" || this.password==""){
+        this.$toast.show("Isi username dan password")
+        return false
+      }
       this.message="Execute...please wait!"        
+      this.$toast.show(this.message)
       var vUrl='/api/user/login/'+this.username+"/"+this.password;
       axios.get(vUrl)
         .then((Response) => {
@@ -101,7 +110,7 @@ export default {
               cookie.set("username",d.rows.username)
               cookie.set("logged_in",true)
               cookie.set("user_info",d.rows)
-              this.message="Success.. redirect to home"
+              this.message="Success.. redirect to home"              
               window.open("/","_self")
             } else {
               this.message="Wrong username or password !"
@@ -110,6 +119,41 @@ export default {
         .catch((err) => {
             this.message=err;
         }) 
+    },
+    signup(){
+      if(this.username=="" || this.password==""){
+        this.$toast.show("Isi username dan password")
+        return false
+      }
+      this.message="Execute...please wait!"        
+      this.$toast.show(this.message)
+      const formData = new FormData()
+      formData.append("user_id",this.username)
+      formData.append("password",this.password)
+      formData.append("mode","add")
+
+
+      var vUrl='/api/user/save_json';
+      axios.post(vUrl,formData)
+        .then((Response) => {
+            var d=Response.data;
+            if(d.success){
+              cookie.set("user_id",this.username)
+              cookie.set("username",this.username)
+              cookie.set("logged_in",true)
+              cookie.set("user_info","")
+              this.message="Success.. redirect to home"
+              this.$toast.show(this.message)              
+              window.open("/","_self")
+            } else {
+              this.message="Error: " + d.msg + "Silahkan di ulangi lagi"
+              this.$toast.show(this.message).goAway(6000)
+            }
+        })
+        .catch((err) => {
+            this.message=err;
+        }) 
+
     }
   }
 }

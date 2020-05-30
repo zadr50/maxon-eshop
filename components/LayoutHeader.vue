@@ -8,17 +8,18 @@
                 | <span class='el-icon-phone-outline' style='font-size:20px'></span> Phone: +62-087874006900
               </el-col>
               <el-col :span=13 :xs=23 >
-                | <span class='el-icon-shopping-cart-2' style='font-size:20px;'></span> ({{item_cart_count}} item) - Rp. {{item_cart_amount}}            
+                | <span class='el-icon-shopping-cart-2' style='font-size:20px;'></span> 
+                ({{item_cart_count}} item) - Rp. {{Number(item_cart_amount).toLocaleString()}}            
               </el-col>
             </el-row>
           </el-col>
           <el-col :span='13' :xs=24 :sm=9 align="right">
+            <span  v-loading="loading" />
             | <nuxt-link to="/help"><span class='el-icon-help' style='font-size:20px'></span> Bantuan </nuxt-link>
             | <nuxt-link v-if="isLoggedIn=='false' || isLoggedIn=='' || isLoggedIn==null" to="/login"><span class='el-icon-user' style='font-size:20px;margin-left:15px'></span> Log In </nuxt-link>
             | <nuxt-link v-if="isLoggedIn=='true'" to="/login/logout">
                 <span class='el-icon-user' style='font-size:20px;margin-left:15px'></span>
                  Log Out {{username}} 
-                 <span  v-loading="loading" />
             </nuxt-link>
           </el-col>
     </el-row>
@@ -39,9 +40,12 @@
               <el-col :span="14" :xs=24>
                 <el-row>
                   <el-col >
-                    <el-input placeholder="Ketik nama produk untuk cari" size="mini" style="width:80%" />
+                    <el-input v-model="search" v-on:keyup.enter="onEnter" placeholder="Ketik nama produk untuk cari" size="mini" style="width:80%" />
+                    <nuxt-link to="#"  @click.native="onEnter">
+                      <span class='el-icon-search' style='font-size:25px;;margin-left:5px' />                                      
+                    </nuxt-link>
                     <nuxt-link to="/cart">
-                      <span class='el-icon-shopping-cart-2' style='font-size:30px;;margin-left:15px' />                                      
+                      <span class='el-icon-shopping-cart-2' style='font-size:25px;;margin-left:5px' />                                      
                     </nuxt-link>
                   </el-col>
                 </el-row>
@@ -82,12 +86,14 @@ export default {
     },
     data() {
       return {
+        search:'',
           drawer: false,
           item_cart_count:0,
           item_cart_amount:0,
           isLoggedIn: false,
           username:'',
-          loading:true
+          loading:true,
+          active: false
       };
     },
     mounted: function(){
@@ -97,16 +103,19 @@ export default {
       var user=cookie.get("user_info")
       this.username=cookie.get("username")
       this.loading=false
+      this.search=cookie.get("search")
     },
     methods: {
+      onEnter(){
+        cookie.set("search",this.search)
+        window.open('/search','_self')
 
+      }
     },
     computed: {
        baseUrl() { return process.env.baseUrl},
        siteUrl() { return process.env.siteUrl}      
     },
-
-
 }
 </script>
 <style scoped>

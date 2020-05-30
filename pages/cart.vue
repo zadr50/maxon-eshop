@@ -2,14 +2,15 @@
     <div style="margin-top:20px">
       <div>
         <div>
-        <h1>
-        <span class="el-icon-back" @click="$router.back()"  />
-        <span class='el-icon-shopping-cart-2' />  
-            Kantong Belanjaan Saya (Cart)</h1>
-        <p>
-            Silahkan periksa daftar belanjaan anda dihalaman ini dan apabila sudah benar silahkan 
-            klik tombol [Checkout] dibagian bawah
-        </p>
+            <h1>
+            <span class="el-icon-back" @click="$router.back()"  />
+            <span class='el-icon-shopping-cart-2' />  
+                Kantong Belanjaan Saya (Cart)
+            </h1>
+            <p>
+                Silahkan periksa daftar belanjaan anda dihalaman ini dan apabila sudah benar silahkan 
+                klik tombol [Checkout] dibagian bawah
+            </p>
         </div>
         <el-col>
             <el-card>              
@@ -22,12 +23,12 @@
                     <p><span v-html="customer" v-bind:key="customer"></span></p>
                 </div>
             </el-card>
-            </el-col>
+            
             <el-card>
-            <p>Sub Total Item: Rp. {{sub_total}}</p>
-            <p>Ongkos Kirim: Rp. {{freight}}</p>
+            <p>Sub Total Item: Rp. {{Number(sub_total).toLocaleString()}}</p>
+            <p>Ongkos Kirim: Rp. {{Number(freight).toLocaleString()}}</p>
             </el-card>
-            <p>Total Tagihan: <span style="font-size:24px" >Rp. {{amount}} </span></p>
+            <p>Total Tagihan: <span style="font-size:24px" >Rp. {{Number(amount).toLocaleString()}} </span></p>
         </el-col>
         <el-col :span=23></el-col>
         <el-row>
@@ -39,8 +40,8 @@
                 <el-col :span=15>
                     <p>{{item.description}}</p>
                     <p>Qty: {{item.quantity}} {{item.unit}}
-                    x Rp. {{item.price}}</p>
-                    <p>Sku: {{item.item_number}} Rp. {{item.amount}}</p>
+                    x Rp. {{Number(item.price).toLocaleString()}}</p>
+                    <p>Sku: {{item.item_number}} Rp. {{Number(item.amount).toLocaleString()}}</p>
                     <p><el-button type="primary" size="mini" @click="delItem(item.line_number)"> Delete</el-button></p>
 
                 </el-col>
