@@ -11,6 +11,24 @@
             klik tombol [Checkout] dibagian bawah
         </p>
         </div>
+        <el-col>
+            <el-card>              
+                <p>Nomor Order# : <b>{{nomor_so}}</b></p>
+                <p>Tanggal : {{sales_date}}</p>
+                <p>Jasa Kirim: {{shipped_via}}</p>
+                <div>
+                    <p>YourId: {{sold_to_customer}}</p>
+                    <p>Alamat: <span v-html="alamat" v-bind:key="alamat"></span></p>
+                    <p><span v-html="customer" v-bind:key="customer"></span></p>
+                </div>
+            </el-card>
+            </el-col>
+            <el-card>
+            <p>Sub Total Item: Rp. {{sub_total}}</p>
+            <p>Ongkos Kirim: Rp. {{freight}}</p>
+            </el-card>
+            <p>Total Tagihan: <span style="font-size:24px" >Rp. {{amount}} </span></p>
+        </el-col>
         <el-col :span=23></el-col>
         <el-row>
             <el-col :span=10 v-for="item in items" v-bind:key="item.line_number" >
@@ -78,9 +96,43 @@ export default {
         ship_address:'',
         items: null,
         message_cart: '',
+        sales_date:'',
+        sold_to_customer:'',
+        customer:'',
+        address:'',
+        shipped_via:'',
+        sub_total:0,
+        freight:0,
+        amount:0,
+        rekening:'',
+        rekening_info:'',
+
       }
     },
     methods: {
+        loadSalesOrder(){
+            this.message="Execute...please wait!"        
+            this.$toast.show(this.message)
+            var vUrl='/api/sales_order/view/'+this.nomor_so+"?json=true"
+            axios.get(vUrl)
+            .then((Response) => {         
+                this.$toast.clear()       
+                var d=Response.data
+                this.nomor_so=d.sales_order_number
+                this.sales_date=d.sales_date
+                this.sold_to_customer=d.sold_to_customer
+                this.customer=d.customer_info
+                this.address=d.customer
+                this.shipped_via=d.shipped_via
+                this.sub_total=d.sub_total
+                this.freight=d.freight
+                this.amount=d.amount
+            })
+            .catch((err) => {
+                this.$toast.show("Error").goAway(6000);
+            })               
+
+        },
         ship_type(){
             this.ship_via=this.radio_ship_via
         },
@@ -108,6 +160,8 @@ export default {
             this.user_id=cookie.get("user_id")
             this.logged_in=cookie.get("logged_in")
             this.loadCartRun()
+            this.loadSalesOrder()
+
        },
        loadCartRun(){
         var vUrl='/api/sales_order/cart/'+this.nomor_so;
