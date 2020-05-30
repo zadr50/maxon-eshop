@@ -143,7 +143,13 @@ export default {
             .catch(_ => {});
        },
        checkout(){
-           if(this.user_id=="" || this.user_id==null || this.logged_in==false || this.nomor_so==""){
+           this.nomor_so=cookie.get("order_no")
+           if(this.nomor_so==null || this.nomor_so==""){
+                this.$toast.show("Nomor Order tidak ditemukan !").goAway(6000);;
+                return 
+
+           }
+           if(this.user_id=="" || this.user_id==null || this.logged_in==false){
                this.$toast.show("Silahkan login terlebih dahulu dan isi alamat pengiriman anda !");
                window.open("/login","_self") 
                return               
