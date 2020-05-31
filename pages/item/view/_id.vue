@@ -65,16 +65,16 @@ export default {
             item_name_long:'',
             form: {
                 item_number:'',
-                description:'Loading...',
+                description:'',
                 item_features:'',
                 retail:0,
                 supplier_number:'',
                 category:'',
                 discount:0,
-                item_picture: 'no_image.png',
-                item_picture2: 'no_image.png',
-                item_picture3: 'no_image.png',
-                item_picture4: 'no_image.png',
+                item_picture: '',
+                item_picture2: '',
+                item_picture3: '',
+                item_picture4: '',
             }
             
         }
@@ -159,6 +159,7 @@ export default {
         return  {
             title:"View Item " + this.form.item_number ,
             meta: [
+            {  hid: 'og:type', name: 'og:type', content: "article" },
             {  hid: 'og:title', name: 'og:title', content: this.form.description },
             {  hid: 'og:image', name: 'og:image', content: this.siteUrl2 + 'tmp/' + this.form.item_picture },
             {  hid: 'og:url', name: 'og:url', content: this.siteUrl2},
