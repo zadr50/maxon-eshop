@@ -3,9 +3,8 @@
       <div>
         <div>
             <h1>
-            <span class="el-icon-back" @click="$router.back()"  />
             <span class='el-icon-shopping-cart-2' />  
-                Kantong Belanjaan Saya (Cart)
+                Kantong Belanja (Cart)
             </h1>
             <p>
                 Silahkan periksa daftar belanjaan anda dihalaman ini dan apabila sudah benar silahkan 
@@ -14,27 +13,23 @@
         </div>
         <el-col>
             <el-card>              
-                <p>Nomor Order# : <b>{{nomor_so}}</b></p>
-                <p>Tanggal : {{sales_date}}</p>
-                <p>Jasa Kirim: {{shipped_via}}</p>
-                <div>
-                    <p>YourId: {{sold_to_customer}}</p>
-                    <p>Alamat: <span v-html="alamat" v-bind:key="alamat"></span></p>
-                    <p><span v-html="customer" v-bind:key="customer"></span></p>
-                </div>
+                <table width='100%'>
+                    <tr><td>Nomor Order#</td><td><b>{{nomor_so}}</b></td></tr>
+                    <tr><td>Tanggal </td><td>{{sales_date}}</td></tr>
+                    <tr><td>Jasa Kirim</td><td>{{shipped_via}}</td></tr>                
+                    <tr><td>Alamat</td><td><span v-html="alamat" v-bind:key="alamat"></span></td></tr>
+                    <tr><td colspan=2><span v-html="customer" v-bind:key="customer"></span></td></tr>
+                    <tr><td>Sub Total</td><td>Rp. {{Number(sub_total).toLocaleString()}}</td></tr>
+                    <tr><td>Ongkos Kirim</td><td>Rp. {{Number(freight).toLocaleString()}}</td></tr>
+                    <tr><td>Total Tagihan</td><td><span style="font-size:24px" >Rp. {{Number(amount).toLocaleString()}} </span></td></tr>
+                </table>
             </el-card>
-            
-            <el-card>
-            <p>Sub Total Item: Rp. {{Number(sub_total).toLocaleString()}}</p>
-            <p>Ongkos Kirim: Rp. {{Number(freight).toLocaleString()}}</p>
-            </el-card>
-            <p>Total Tagihan: <span style="font-size:24px" >Rp. {{Number(amount).toLocaleString()}} </span></p>
         </el-col>
         <el-col :span=23></el-col>
         <el-row>
-            <el-col :span=10 v-for="item in items" v-bind:key="item.line_number" >
-            <el-card style="margin:10px;height:120px">
-                <el-col :span=7 style=''>
+            <el-col :span=10 :xs=24 v-for="item in items" v-bind:key="item.line_number" >
+            <el-card style="margin:5px;padding:5px">
+                <el-col :span=7 style='margin-right:10px'>
                     <img :src="siteUrl+'tmp/'+item.item_picture" width="80" height="80" />                    
                 </el-col>
                 <el-col :span=15>
@@ -42,7 +37,7 @@
                     <p>Qty: {{item.quantity}} {{item.unit}}
                     x Rp. {{Number(item.price).toLocaleString()}}</p>
                     <p>Sku: {{item.item_number}} Rp. {{Number(item.amount).toLocaleString()}}</p>
-                    <p><el-button type="primary" size="mini" @click="delItem(item.line_number)"> Delete</el-button></p>
+                    <p><el-button type="default" size="mini" @click="delItem(item.line_number)"> Delete</el-button></p>
 
                 </el-col>
             </el-card>
@@ -57,7 +52,7 @@
             <p>Silahkan isi alamat kirim dibawah ini apabila belum terisi alamat kirim 
                 silahkan login terlebih dahulu dan isi alamat kirim anda.</p>
             <p v-html="alamat" style="margin-top:20px" ></p>
-            <el-button type="primary" @click="profile" style="margin-top:20px"> My Profile</el-button>
+            <el-button type="warning" size="mini" @click="profile" style="margin-top:20px"> My Profile</el-button>
           </el-card>    
         </el-row>
         <el-row>
@@ -71,7 +66,9 @@
             </el-card>
         </el-row>
         <el-row>
+            <div style='text-align:center'>
             <el-button type="primary" @click="checkout" style="margin-top:20px"> Checkout </el-button>
+            </div>
         </el-row>
       </div>
     </div>
@@ -111,6 +108,7 @@ export default {
     },
     methods: {
         loadSalesOrder(){
+            this.nomor_so=cookie.get("order_no")
             this.message="Execute...please wait!"        
             this.$toast.show(this.message)
             var vUrl='/api/sales_order/view/'+this.nomor_so+"?json=true"
@@ -118,7 +116,6 @@ export default {
             .then((Response) => {         
                 this.$toast.clear()       
                 var d=Response.data
-                this.nomor_so=d.sales_order_number
                 this.sales_date=d.sales_date
                 this.sold_to_customer=d.sold_to_customer
                 this.customer=d.customer_info

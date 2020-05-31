@@ -113,6 +113,15 @@ export default {
                 var item=JSON.parse(d.items)
                 this.tableData=item.rows;
 
+                //clear cookie
+                    cookie.delete("order_no")
+                    cookie.delete("search")
+                    cookie.delete("order_iem_amount")
+                    cookie.delete("baseUrl")
+                    cookie.delete("user_info")
+
+
+
             })
             .catch((err) => {
                 this.$toast.show("Error").goAway(6000);

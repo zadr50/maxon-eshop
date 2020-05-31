@@ -7,7 +7,7 @@
     </h1>
     <span v-loading="loading" /><span>{{message}}</span>
     <el-divider></el-divider>
-    <el-col :span=15>
+    <el-col :span=15 :xs=23>
       <el-form ref="form" :model="form" label-width="120px" >
           <el-form-item label="User Id">
               <el-input v-model="form.user_id"></el-input>
@@ -25,7 +25,7 @@
               <el-input type="textarea" v-model="form.address"></el-input>
           </el-form-item>
       </el-form>    
-      <div>
+      <div style="text-align:center">
            <el-button type="primary" @click="onSubmit">Save</el-button>
       </div>        
     </el-col>  

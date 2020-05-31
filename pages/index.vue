@@ -123,17 +123,7 @@ export default {
         this.loadItemFeatures()
       },
        boxItemClick(item_no){
-          var vUrl='/api/inventory/find/'+item_no;
-          this.$axios.get(vUrl)
-            .then((Response) => {
-                var d = Response.data;
-                cookie.set("cookie_item_number",d.item_number)
-                cookie.set("cookie_description",d.description)
-                cookie.set("cookie_item_picture",d.item_picture)
-                cookie.set('cookie_item_name',d.item_features)
-                window.open("item/view/"+item_no,"_self");
-            })
-
+           window.open("item/view/"+item_no,"_self");
        },
        loadItemLatest(){
         var vUrl='/api/inventory/browse_data/?supplier=beads';

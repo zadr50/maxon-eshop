@@ -4,7 +4,8 @@
           <el-col :span='10' :xs=24 :sm=14>
             <el-row>
               <el-col :span=10 :xs=23 :sm=11>
-                <span class='el-icon-phone-outline' style='font-size:20px'></span> Phone: +62-087874006900
+                <span class="el-icon-back" @click="$router.back()" style='font-size:20px;cursor:pointer' />
+                <span class='el-icon-phone-outline' style='font-size:20px'></span>+62-087874006900
               </el-col>
               <el-col :span=13 :xs=23 >
                 | <span class='el-icon-shopping-cart-2' style='font-size:20px;'></span> 
@@ -14,13 +15,13 @@
           </el-col>
           <el-col :span='13' :xs=24 :sm=9 align="right">
             <span  v-loading="loading" />
-            | <nuxt-link to="/help"><span class='el-icon-help' style='font-size:20px'></span> Bantuan </nuxt-link>
-            | <nuxt-link v-if="isLoggedIn=='false' || isLoggedIn=='' || isLoggedIn==null" to="/login"><span class='el-icon-user' style='font-size:20px;margin-left:15px'></span> Log In </nuxt-link>
-            | <nuxt-link v-if="isLoggedIn=='true'" to="/login/logout">
+             <nuxt-link v-if="isLoggedIn=='false' || isLoggedIn=='' || isLoggedIn==null" to="/login"><span class='el-icon-user' style='font-size:20px;margin-left:15px'></span> Log In </nuxt-link>
+             <nuxt-link v-if="isLoggedIn=='true'" to="/login/logout">
                 <span class='el-icon-user' style='font-size:20px;margin-left:15px'></span>
                  Log Out {{username}} 
             </nuxt-link>
-             <span @click="drawer = true" class="el-icon-notebook-2" style="font-size:20px"/>  
+            | <nuxt-link to="/help"><span class='el-icon-help' style='font-size:20px'></span> Bantuan </nuxt-link>
+            | <span @click="drawer = true" class="el-icon-notebook-2" style="font-size:20px;cursor:pointer"/>  
 
           </el-col>
     </el-row>
@@ -41,7 +42,9 @@
               <el-col :span="14" :xs=24>
                 <el-row>
                   <el-col >
-                    <el-input v-model="search" v-on:keyup.enter="onEnter" placeholder="Ketik nama produk untuk cari" size="mini" style="width:80%" />
+                    <el-input v-model="search" v-on:keyup.enter="onEnter" 
+                    placeholder="Ketik nama produk untuk cari" size="mini" 
+                    style="width:50%" />
                     <nuxt-link to="#"  @click.native="onEnter">
                       <span class='el-icon-search' style='font-size:25px;;margin-left:5px' />                                      
                     </nuxt-link>

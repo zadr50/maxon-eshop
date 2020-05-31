@@ -9,7 +9,6 @@
 
       <el-input v-model="search" size="mini" placeholder="Type to search" style="width:200px" />
       <el-button size="mini" type="success" @click="handleRefresh()"><span class='el-icon-refresh-left'> Refresh</span></el-button>
-      <el-button size="mini" type="primary" @click="handleAdd()"><span class='el-icon-document-add'> Addnew</span></el-button>
 
   <el-table :data="tableData.filter(data => !search || data.company.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
@@ -21,8 +20,7 @@
       <template slot="header" >
       </template>
       <template slot-scope="scope">
-        <el-button  size="mini" type="warning" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        <el-button  size="mini"  type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+        <el-button  size="mini" type="warning" @click="handleEdit(scope.$index, scope.row)">View</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -30,48 +28,13 @@
       background layout="prev, pager, next"  @current-change="handleCurrentChange" :total="100">
   </el-pagination>
 
-  <el-dialog title="Master Sales Order"  :visible.sync="dialogVisible"
-    width="60%" :before-close="handleClose">
-    <el-divider></el-divider>
-    <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="Bukti SO#">
-            <el-input v-model="form.sales_order_number"></el-input>
-        </el-form-item>
-        <el-form-item label="Pelanggan">
-            <el-select v-model="form.sold_to_customer" placeholder="please select customer">
-              <el-option v-for="(cst,idx) in CustomerList" 
-                  :label="cst.company" 
-                  :value="cst.customer_number" 
-                  :key="idx" >
-              </el-option>
-            </el-select>
-          </el-form-item>                  
-        <el-form-item label="Tanggal">
-            <el-date-picker
-              v-model="form.sales_date"
-              type="datetime"
-              placeholder="Select date and time"
-              default-time="12:00:00">
-            </el-date-picker>                              
-        </el-form-item>
-        <el-form-item label="Termin">
-            <el-input v-model="form.payment_terms"></el-input>
-        </el-form-item>
-        <el-form-item label="Salesman">
-            <el-input v-model="form.salesman"></el-input>
-        </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-      <i style='color:red'>{{message}}</i>
-      <el-button @click="dialogVisible = false">Cancel</el-button>
-      <el-button type="primary" @click="onSubmit">Confirm</el-button>
-    </span>
-  </el-dialog>
+ 
   </div>
 </template>
 
 <script>
-  
+import cookie from 'vue-cookie'
+
   export default {
     head: {
       title: 'Sales Order'
@@ -81,20 +44,15 @@
         tableData: [{sales_order_number: 'Loading...'}],
         search: '',        dialogVisible: false,
         message: "",       mode:"add",
-        page:1,            date1: new Date(), date2: new Date(), 
-        form: {
-          sales_order_number: 'AUTO',
-          sold_to_customer: 'CASH',
-          sales_date: new Date(),
-          salesman: 'OFFICE',
-          payment_terms: 'KREDIT',
-        },
+        page:1,            date1: new Date(), 
+        date2: new Date(), 
         columns: [
           {label: "Nomor SO", field:"sales_order_number"},
           {label: "Customer", field:"company"},
           {label: "Tanggal", field:"sales_date"},
           {label: "Salesman", field:"salesman"},
           {label: "Jumlah", field:"amount"},
+          {label: "Status", field:"status"},
         ],
         custList: [{label:"",value:"Unknown"},{label:"",value:"CASH"}],
       }
@@ -111,33 +69,11 @@
         var vUrl="/so/view/"+this.tableData[index].sales_order_number;
         window.open(vUrl,"_self");
       },
-      handleDelete(index, row) {
-        this.$confirm('Are you sure delete this document ?')
-          .then(_ => {
-          var vUrl='/api/sales_order/delete/'+this.tableData[index].sales_order_number;
-          this.message="Execute...please wait!"        
-          this.$axios.get(vUrl)
-            .then((Response) => {
-                this.message=Response.data.msg;
-                this.loadData();
-            })
-            .catch((err) => {
-                console.log(err)
-                this.message=err;
-            })
-        })
-        .catch(_ => {});
-      },
-      handleAdd() {
-        this.dialogVisible=true;
-        this.mode="add";
-      },
-      handleClose(done) {
-        done();
-      },
       loadData(){
         this.message="Execute...please wait!"        
-        var vUrl='/api/sales_order/browse_data/'+this.page+"?sid_date_from="+this.date1+"&sid_date_to="+this.date2;
+        let $user_id=cookie.get("user_id");
+        var vUrl='/api/sales_order/browse_data/'+this.page+"?sid_date_from="+this.date1 
+          +"&sid_date_to="+this.date2 + "&order_by=sales_date desc&sid_cust_no="+$user_id;
         this.$axios.get(vUrl)
             .then((Response) => {
                 this.tableData = Response.data.rows;
@@ -146,38 +82,6 @@
             })
             .catch((err) => {
                 console.log("Error")
-            })
-      },
-      onSubmit() {
-        const formData = new FormData()
-        Object.keys(this.form).forEach((key) => {
-          if(key=="sales_date"){
-            formData.append(key, formatDate(this.form[key]))
-
-          } else {
-            formData.append(key, this.form[key])
-
-          }
-        })
-        formData.append("mode",this.mode);
-
-        var vUrl='/api/sales_order/save';
-        this.message="Execute...please wait!"        
-        this.$axios.post(vUrl,formData)
-            .then((Response) => {
-              console.log(Response);
-              if(Response.data.success){
-                this.dialogVisible=false;
-                this.message="Success";
-                this.form.sales_order_number=Response.data.sales_order_number;
-                vUrl="/so/view/"+Response.data.sales_order_number;
-                window.open(vUrl,"_self");
-              } else {
-                this.message=Response.data.msg;
-              }
-            })
-            .catch((err) => {
-                this.message='Error'
             })
       },
       handleSizeChange(val) {
@@ -189,17 +93,6 @@
         this.page=val;
         this.loadData();
       },
-      CustomerListLoad(){
-        var vUrl='/api/customer/browse_data/1/1000';
-        this.$axios.get(vUrl)
-            .then((Response) => {
-                this.CustomerList = Response.data.rows;
-            })
-            .catch((err) => {
-                console.log("Error")
-        })
-      },
-
     },
     mounted: function(){
       var d=new Date();  var month = d.getMonth();  var day = d.getDate(); var year = d.getFullYear();
@@ -208,7 +101,6 @@
       this.date1=[year,month,'01'].join('-')
       this.date2=[year,month+2,'01'].join('-')
       this.loadData();
-      this.CustomerListLoad();
     },
        
   } 

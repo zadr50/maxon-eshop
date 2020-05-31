@@ -14,6 +14,7 @@
                         <p class="head-item-type"  style="height:25px;border-bottom:1px solid lightgray" ><span class='el-icon-position' /> My Profile & Cart</p>
                         <li><nuxt-link to="/profile"> Profile</nuxt-link></li>
                         <li><nuxt-link to="/cart"> Kantong Belanja</nuxt-link></li>
+                        <li><nuxt-link to="/so/order"> History Order</nuxt-link></li>
                         <li><nuxt-link to="/login/logout"> Logout</nuxt-link></li>
                         <p>You have [{{item_cart_count}}] in your shopping cart</p>
 
