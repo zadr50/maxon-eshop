@@ -3,7 +3,7 @@
       <el-row>
         <el-col :span="24" >
           <span  v-loading="loading"  />
-          <i style='color:red;height:50px'><b>{{message}}</b></i>
+          <i style='color:red;height:50px'><b>{{message}} </b></i>
         </el-col>
       </el-row>
       <el-row> 
@@ -106,6 +106,7 @@ export default {
     },
     data() {
       return {
+        siteUrl2:'',
         message_next:"",
         page:1,
         message:'',
@@ -184,22 +185,23 @@ export default {
        }
     },
     mounted() {
+      cookie.set('siteUrl2',this.siteUrl2)
       this.loadItemLatest()
       this.loadItemFeatures()
     },
 
     updated: function () {
-       
     },
     created: function () {
 
     },
     computed: {
-       baseUrl() { return process.env.baseUrl},
-       siteUrl() { return process.env.siteUrl}      
+       baseUrl() { 
+         return process.env.baseUrl},
+       siteUrl() { this.siteUrl2=process.env.siteUrl; 
+       return process.env.siteUrl}      
     },
     complete() {
-
     }
 
 

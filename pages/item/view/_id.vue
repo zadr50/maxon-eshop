@@ -56,14 +56,13 @@
 <script>
 import cookie from 'vue-cookie'
 export default {
-    head: {
-        title:"View Item"
-    },
     data() {
         return {
+            siteUrl2: '',
             id: this.$route.params.id,
             quantity:1,
             order_no:'',
+            item_name_long:'',
             form: {
                 item_number:'',
                 description:'Loading...',
@@ -80,6 +79,7 @@ export default {
             
         }
     },
+
     methods: {
         incQty(){
             this.quantity++
@@ -133,6 +133,7 @@ export default {
             this.$axios.get(vUrl)
                 .then((Response) => {
                     this.form = Response.data;
+                    this.item_name_long=Response.data.item_features
                     this.$toast.clear();
                 })
                 .catch((err) => {
@@ -145,12 +146,28 @@ export default {
     },
     mounted(){
         this.order_no=cookie.get("order_no")
+        this.siteUrl2=cookie.get("siteUrl2")
         this.loadItem()
     },
-    computed: {
-       baseUrl() { return process.env.baseUrl},
+    computed: {        
+       baseUrl() { 
+           return process.env.baseUrl
+        },
        siteUrl() { return process.env.siteUrl}      
-    }
+    },
+    head() {
+        return  {
+            title:"View Item " + this.form.item_number ,
+            meta: [
+            {  hid: 'og:title', name: 'og:title', content: this.form.description },
+            {  hid: 'og:image', name: 'og:image', content: this.siteUrl2 + 'tmp/' + this.form.item_picture },
+            {  hid: 'og:url', name: 'og:url', content: this.siteUrl2},
+            { hid: 'og:alt', name: 'og:alt', content: this.form.description},
+            { hid: 'og:description', name: 'og:description', content: this.form.description},
+            ],
+        }
+    },
+
 
 }
 </script>
