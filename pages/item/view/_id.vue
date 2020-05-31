@@ -63,6 +63,10 @@ export default {
             quantity:1,
             order_no:'',
             item_name_long:'',
+            cookie_item_number:'',
+            cookie_description:'',
+            cookie_item_picture:'',
+            cookie_item_name:'',
             form: {
                 item_number:'',
                 description:'',
@@ -147,6 +151,10 @@ export default {
     mounted(){
         this.order_no=cookie.get("order_no")
         this.siteUrl2=cookie.get("siteUrl2")
+        this.cookie_item_number=cookie.get("cookie_item_number")
+        this.cookie_description=cookie.get("cookie_description")
+        this.cookie_item_picture=this.siteUrl2 + 'tmp/'+cookie.get("cookie_item_picture")
+        this.cookie_item_name=cookie.get("cookie_item_name")
         this.loadItem()
     },
     computed: {        
@@ -157,14 +165,14 @@ export default {
     },
     head() {
         return  {
-            title:"View Item " + this.form.item_number ,
+            title:"View Item " + this.cookie_item_number ,
             meta: [
             {  hid: 'og:type', name: 'og:type', content: "article" },
-            {  hid: 'og:title', name: 'og:title', content: this.form.description },
-            {  hid: 'og:image', name: 'og:image', content: this.siteUrl2 + 'tmp/' + this.form.item_picture },
+            {  hid: 'og:title', name: 'og:title', content: this.cookie_description },
+            {  hid: 'og:image', name: 'og:image', content: this.cookie_item_picture },
             {  hid: 'og:url', name: 'og:url', content: this.siteUrl2},
-            { hid: 'og:alt', name: 'og:alt', content: this.form.description},
-            { hid: 'og:description', name: 'og:description', content: this.form.description},
+            { hid: 'og:alt', name: 'og:alt', content: this.cookie_description},
+            { hid: 'og:description', name: 'og:description', content: this.cookie_description},
             ],
         }
     },
