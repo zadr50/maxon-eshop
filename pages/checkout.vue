@@ -116,8 +116,10 @@ export default {
                 //clear cookie
                     cookie.delete("order_no")
                     cookie.delete("search")
-                    cookie.delete("order_iem_amount")
+                    cookie.delete("order_item_count")
+                    cookie.delete("order_item_amount")
                     cookie.delete("baseUrl")
+                    cookie.delete("user_info")
                     cookie.delete("user_info")
 
 

@@ -44,6 +44,9 @@ import cookie from "vue-cookie"
       };
     },
     mounted: function(){
+      this.item_cart_count=cookie.get("order_item_count",0)
+      this.item_cart_amount=cookie.get("order_item_amount",0)
+
     },
     methods: {
     },

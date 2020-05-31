@@ -48,6 +48,7 @@ import cookie from 'vue-cookie'
         date2: new Date(), 
         columns: [
           {label: "Nomor SO", field:"sales_order_number"},
+          {label: "Cust No", field:"sold_to_customer"},
           {label: "Customer", field:"company"},
           {label: "Tanggal", field:"sales_date"},
           {label: "Salesman", field:"salesman"},
