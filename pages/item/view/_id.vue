@@ -148,6 +148,11 @@ export default {
                     this.photo_url.push(this.form.item_picture3)
                     this.photo_url.push(this.form.item_picture4)
                     this.photo=this.photo_url[0]
+                    this.cookie_item_picture=this.siteUrl2 + 'tmp/'+this.photo
+                    this.cookie_item_name=this.form.description
+                    this.cookie_description=this.form.special_features
+                    this.cookie_item_number=this.form.item_number
+
                 })
                 .catch((err) => {
                     this.$toast.show(err);
@@ -180,10 +185,10 @@ export default {
             title:"View Item " ,
             meta: [
             {  hid: 'og:type', name: 'og:type', content: "article" },
-            {  hid: 'og:title', name: 'og:title', content: this.cookie_description },
+            {  hid: 'og:title', name: 'og:title', content: this.cookie_item_name },
             {  hid: 'og:image', name: 'og:image', content: this.cookie_item_picture },
-            {  hid: 'og:url', name: 'og:url', content: this.siteUrl2},
-            { hid: 'og:alt', name: 'og:alt', content: this.cookie_description},
+            {  hid: 'og:url', name: 'og:url', content: "http://tokomypos.biz.id/item/view/"+this.cookie_item_number},
+            { hid: 'og:alt', name: 'og:alt', content: this.cookie_item_name},
             { hid: 'og:description', name: 'og:description', content: this.cookie_description},
             ],
         }
