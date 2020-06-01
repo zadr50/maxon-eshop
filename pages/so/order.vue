@@ -2,14 +2,21 @@
   <div>
       <h1><span class='el-icon-paperclip'> Daftar Sales Order</span></h1>
       <p><i style='color:red'>{{message}}</i></p>
+
+
       <el-divider></el-divider> 
+             <el-col :span=23 v-if="!isLoggedIn">
+                <el-alert type="warning">
+                 <p><b>Anda belum login, silahkan login terlebih dahulu</b></p>
+                </el-alert>
+            </el-col>
+
       Date From: 
       <el-date-picker v-model="date1" type="datetime" size="mini"/>
       <el-date-picker v-model="date2" type="datetime" size="mini"/>
 
       <el-input v-model="search" size="mini" placeholder="Type to search" style="width:200px" />
       <el-button size="mini" type="success" @click="handleRefresh()"><span class='el-icon-refresh-left'> Refresh</span></el-button>
-
   <el-table :data="tableData.filter(data => !search || data.company.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
     <el-table-column v-for="col in columns"  :label="col.label" :prop="col.field" 
@@ -41,6 +48,7 @@ import cookie from 'vue-cookie'
     },
     data() {
       return {
+        isLoggedIn:false,
         tableData: [{sales_order_number: 'Loading...'}],
         search: '',        dialogVisible: false,
         message: "",       mode:"add",
@@ -96,6 +104,7 @@ import cookie from 'vue-cookie'
       },
     },
     mounted: function(){
+      this.isLoggedIn=cookie.get("logged_in")
       var d=new Date();  var month = d.getMonth();  var day = d.getDate(); var year = d.getFullYear();
       if (month.length < 2)  month = '0' + month;  if (day.length < 2)    day = '0' + day;
 

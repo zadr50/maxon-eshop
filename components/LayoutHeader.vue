@@ -28,7 +28,7 @@
     <el-header >
           <div >
             <el-col :span="24" style="padding:5px">
-              <el-col :span=10 :xs=24>
+              <el-col :span=6 :xs=24>
                 <nuxt-link to="/">
                   <el-col class="button2" style="margin-right:15px">                                
                     <span class='el-icon-goods' style='font-size:40px;float:left'/> 
@@ -106,6 +106,10 @@ export default {
       this.isLoggedIn=cookie.get("logged_in")
       var user=cookie.get("user_info")
       this.username=cookie.get("username")
+      if(this.username==""){
+        cookie.set("logged_in",true)
+        this.username=cookie.get("user_id")
+      }
       this.loading=false
       this.search=cookie.get("search")
     },

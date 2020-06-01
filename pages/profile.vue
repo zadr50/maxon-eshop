@@ -7,7 +7,11 @@
     </h1>
     <span v-loading="loading" /><span>{{message}}</span>
     <el-divider></el-divider>
-    <el-col :span=15 :xs=23>
+    <el-alert type="warning">
+        <p><b>Anda belum login, silahkan login terlebih dahulu.</b></p>
+    </el-alert>
+
+    <el-col :span=15 :xs=23 v-if="isLoggedIn">
       <el-form ref="form" :model="form" label-width="120px" >
           <el-form-item label="User Id">
               <el-input v-model="form.user_id"></el-input>
@@ -41,6 +45,7 @@ export default {
     },
     data(){
         return {
+            isLoggedIn:false,
             loading: true,
             message:'',
             form: {
@@ -101,6 +106,7 @@ export default {
         },
     },
     mounted: function(){      
+        this.isLoggedIn=cookie.get("logged_in")
         this.form.user_id= cookie.get("user_id")
         this.loadData()
     },

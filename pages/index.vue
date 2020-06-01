@@ -99,7 +99,7 @@ import myslider from '~/components/Slider'
 
 export default {
     head: {
-      title: 'MaxonErp Online Shop'
+      title: 'Toko MyPOS'
     },
     components: { 
       myslider

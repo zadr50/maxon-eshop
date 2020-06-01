@@ -10,6 +10,12 @@
                 Silahkan periksa daftar belanjaan anda dihalaman ini dan apabila sudah benar silahkan 
                 klik tombol [Checkout] dibagian bawah
             </p>
+             <el-col :span=23 v-if="!isLoggedIn">
+                <el-alert type="warning">
+                 <p><b>Anda belum login, silahkan login terlebih dahulu</b></p>
+                </el-alert>
+            </el-col>
+
         </div>
         <el-col>
             <el-card>              
@@ -84,6 +90,7 @@ export default {
     },
     data() {
       return {
+        isLoggedIn:false,  
         radio_ship_via: "1",  
         ship_via:'1',
         alamat:'Loading alamat....',  
@@ -196,7 +203,7 @@ export default {
        checkout(){
            this.nomor_so=cookie.get("order_no")
            if(this.nomor_so==null || this.nomor_so==""){
-                this.$toast.show("Nomor Order tidak ditemukan !").goAway(6000);;
+                this.$toast.show("Nomor Order tidak ditemukan ! Silahkan Login atau belanja terlebih dahulu.").goAway(6000);;
                 return 
 
            }
@@ -244,6 +251,7 @@ export default {
        }
     },
     mounted() {
+        this.isLoggedIn=cookie.get("logged_in")
       this.loadCart()
       this.loadUser()
       this.item_cart_count=cookie.get("order_item_count",0)
