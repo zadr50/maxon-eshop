@@ -8,6 +8,7 @@
                         <li><nuxt-link to="/category/perlengkapan"> Perlengkapan</nuxt-link></li>
                         <li><nuxt-link to="/category/aksesori"> Aksesori</nuxt-link></li>
                         <li><nuxt-link to="/category/souvenir"> Souvenir & Pesta</nuxt-link></li>
+                        <li><nuxt-link to="/category/apd"> Apd (Medical)</nuxt-link></li>
                         <li><nuxt-link to="/category"> Semuanya</nuxt-link></li>
                     </div>
                     <div class="box-cart">

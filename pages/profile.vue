@@ -7,9 +7,12 @@
     </h1>
     <span v-loading="loading" /><span>{{message}}</span>
     <el-divider></el-divider>
-    <el-alert type="warning">
-        <p><b>Anda belum login, silahkan login terlebih dahulu.</b></p>
-    </el-alert>
+
+    <el-col :span=23 v-if="!isLoggedIn">
+        <el-alert type="warning">
+          <p><b>Anda belum login, silahkan login terlebih dahulu</b></p>
+        </el-alert>
+    </el-col>
 
     <el-col :span=15 :xs=23 v-if="isLoggedIn">
       <el-form ref="form" :model="form" label-width="120px" >

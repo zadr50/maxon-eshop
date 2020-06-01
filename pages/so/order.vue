@@ -5,11 +5,11 @@
 
 
       <el-divider></el-divider> 
-             <el-col :span=23 v-if="!isLoggedIn">
-                <el-alert type="warning">
-                 <p><b>Anda belum login, silahkan login terlebih dahulu</b></p>
-                </el-alert>
-            </el-col>
+      <el-col :span=23 v-if="!isLoggedIn">
+        <el-alert type="warning">
+          <p><b>Anda belum login, silahkan login terlebih dahulu</b></p>
+        </el-alert>
+    </el-col>
 
       Date From: 
       <el-date-picker v-model="date1" type="datetime" size="mini"/>
