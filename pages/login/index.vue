@@ -13,7 +13,7 @@
 
 
   <el-row align-h="center" align-v="center" >
-    <el-col :span="10">
+    <el-col :span="10" :xs=23>
       <el-card bg-variant="light">
         <busy-overlay />
         <form @keydown.enter="login">
