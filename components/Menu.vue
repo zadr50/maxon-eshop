@@ -69,6 +69,13 @@ import cookie from "vue-cookie"
 .box-category li {
     height: 25px;
 }
+.box-category a {
+    font-weight: bold;
+    text-decoration: none;
+}
+.box-category a:hover {
+  color:blueviolet;
+}
 
 .head-item-type {
   font-size:14px;
@@ -83,6 +90,13 @@ import cookie from "vue-cookie"
 .box-cart li {
   height: 25px;
   padding-top: 5px
+}
+.box-cart a {
+    font-weight: bold;
+    text-decoration: none;
+}
+.box-cart a:hover {
+    color:blueviolet
 }
 .box-comp {
   margin-bottom:15px;

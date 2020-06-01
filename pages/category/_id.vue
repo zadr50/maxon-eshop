@@ -12,7 +12,7 @@
                   <div class="divItem" >
                     <div class='foto' style="text-align:center;cursor:pointer; " 
                         @click="boxItemClick(item.item_no)" >
-                    <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="200" height="170"  />                                   
+                       <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
                     </div>
                     <div class='item_name'>
                       <p>{{item.item_name}}</p>  

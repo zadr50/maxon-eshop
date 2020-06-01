@@ -19,12 +19,17 @@
         </div>
         <el-col>
             <el-card>              
-                <table width='100%'>
+                <table width='100%' :model="tableData" :bind="tableData">
                     <tr><td>Nomor Order#</td><td><b>{{nomor_so}}</b></td></tr>
                     <tr><td>Tanggal </td><td>{{sales_date}}</td></tr>
-                    <tr><td>Jasa Kirim</td><td>{{shipped_via}}</td></tr>                
+                    <tr>
+                        <td>Jasa Kirim</td>
+                        <td>
+                            {{shipped_via}}  
+                        </td>                    
+                    </tr>                
                     <tr><td>Alamat</td><td><span v-html="alamat" v-bind:key="alamat"></span></td></tr>
-                    <tr><td colspan=2><span v-html="customer" v-bind:key="customer"></span></td></tr>
+                    <tr><td></td><td><span v-html="customer" v-bind:key="customer"></span></td></tr>
                     <tr><td>Sub Total</td><td>Rp. {{Number(sub_total).toLocaleString()}}</td></tr>
                     <tr><td>Ongkos Kirim</td><td>Rp. {{Number(freight).toLocaleString()}}</td></tr>
                     <tr><td>Total Tagihan</td><td><span style="font-size:24px" >Rp. {{Number(amount).toLocaleString()}} </span></td></tr>
@@ -33,7 +38,7 @@
         </el-col>
         <el-col :span=23></el-col>
         <el-row>
-            <el-col :span=10 :xs=24 v-for="item in items" v-bind:key="item.line_number" >
+          <el-col :span=12 :xs=24 v-for="item in items" v-bind:key="item.line_number" >
             <el-card style="margin:5px;padding:5px">
                 <el-col :span=7 style='margin-right:10px'>
                     <img :src="siteUrl+'tmp/'+item.item_picture" width="80" height="80" />                    
@@ -47,10 +52,10 @@
 
                 </el-col>
             </el-card>
-            </el-col>
-            <el-col style="height:50px;padding-top:20px"> 
+          </el-col>
+          <el-col style="height:50px;padding-top:20px"> 
                 <p style="color:red">{{message_cart}}</p>
-            </el-col>
+          </el-col>
         </el-row>
         <el-row>
           <el-card>  
@@ -66,9 +71,11 @@
                 <h1><span class='el-icon-bicycle'/> Jasa Pengiriman</h1>
                 <p>Sebelum klik checkout silahkan pilih jasa pengiriman yang ingin anda gunakan</p>
                 <p  style="margin-top:20px" >
-                <el-radio v-model="radio_ship_via" label="1" @change="ship_type">TIKI</el-radio>
-                <el-radio v-model="radio_ship_via" label="2" @change="ship_type">JNE</el-radio> 
+                            <el-radio v-model="radio_ship_via" label="1" @change="ship_type">TIKI</el-radio>
+                            <el-radio v-model="radio_ship_via" label="2" @change="ship_type">JNE</el-radio> 
                 </p>
+
+
             </el-card>
         </el-row>
         <el-row>
@@ -87,10 +94,11 @@ export default {
       title: 'My Cart'
     },
     components: {
+
     },
     data() {
       return {
-        isLoggedIn:false,  
+        isLoggedIn: false,
         radio_ship_via: "1",  
         ship_via:'1',
         alamat:'Loading alamat....',  
@@ -131,6 +139,7 @@ export default {
                 this.sub_total=d.sub_total
                 this.freight=d.freight
                 this.amount=d.amount
+                if(this.amount==0)this.amount=this.sub_total
             })
             .catch((err) => {
                 this.$toast.show("Error").goAway(6000);
@@ -251,7 +260,7 @@ export default {
        }
     },
     mounted() {
-        this.isLoggedIn=cookie.get("logged_in")
+      this.isLoggedIn=cookie.get("logged_in")
       this.loadCart()
       this.loadUser()
       this.item_cart_count=cookie.get("order_item_count",0)
