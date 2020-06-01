@@ -36,7 +36,14 @@
               </el-card>
             </el-col>            
         </el-col>
+        <el-col :span=24>
+          <el-button type="primary" @click="nextPageLatest"> Halaman Selanjutnya</el-button>
+          <span>{{message_next}}</span>
+        </el-col>
+
+      
       </el-row>
+      
       <el-row>
         <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
             <span class='el-icon-position' /> Promotion
@@ -109,6 +116,7 @@ export default {
         siteUrl2:'',
         message_next:"",
         page:1,
+        page_latest:1,
         message:'',
         upHere:false,
         items_latest: null,
@@ -117,6 +125,23 @@ export default {
       }
     },
     methods: {
+      prevPageLatest(){
+        this.page_latest--
+        if(this.page_latest<1)this.page_latest=1
+        this.message="Page: " + this.page_latest
+        this.loadItemLatest()
+      },
+      nextPageLatest(){
+        this.page_latest++
+        this.message="Page: " + this.page_latest
+        this.loadItemLatest()
+      },
+      prevPage(){
+        this.page--
+        if(this.page<1)this.page=1
+        this.message="Page: " + this.page
+        this.loadItemFeatures()
+      },
       nextPage(){
         this.page++
         this.message="Page: " + this.page
@@ -126,44 +151,49 @@ export default {
            window.open("item/view/"+item_no,"_self");
        },
        loadItemLatest(){
-        var vUrl='/api/inventory/browse_data/?supplier=beads';
-        //this.$toast.show("Execute...please wait!");
-        this.message="Loading..."
+        var vUrl='/api/inventory/browse_data/?supplier=beads&page=' + this.page_latest;
+        this.message_next="Loading page " + this.page_latest + "..."
         this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;
-                var data=[];
-                for(var i=0;i<o.length;i++){
-                  data.push(
-                     {item_no:o[i].item_number,item_name:o[i].description,
-                     item_price:o[i].retail,icon_file: o[i].item_picture}
-                  )
-                }
-                this.items_latest=data
-
-                //this.$refs.pagination.total=Response.data.rows.length/10
-                this.$toast.clear();
-                this.loading=false
-                this.message=""
-
-            })
-            .catch((err) => {
-                this.$toast.show(err);
-            })
-       },
-       loadItemFeatures(){
-         this.message_next="Loading page " + this.page + "..."
-        var vUrl='/api/inventory/browse_data/?stat=features&page=' + this.page;
-        this.$axios.get(vUrl)
-            .then((Response) => {
-                var o = Response.data.rows;
-                  if(this.page==1){
+                if(this.page_latest==1){
                   var data=[];
                   for(var i=0;i<o.length;i++){
                     data.push(
                       {item_no:o[i].item_number,item_name:o[i].description,
                       item_price:o[i].retail,icon_file: o[i].item_picture}
                     )
+                  }
+                  this.items_latest=data
+                } else {
+                  for(var i=0;i<o.length;i++){
+                    this.items_latest.push(
+                      {item_no:o[i].item_number,item_name:o[i].description,
+                      item_price:o[i].retail,icon_file: o[i].item_picture}
+                    )
+                  }
+                }
+                this.$toast.clear();
+                this.loading=false
+                this.message=""
+            })
+            .catch((err) => {
+                this.$toast.show(err);
+            })
+       },
+       loadItemFeatures(){
+        this.message_next="Loading page " + this.page + "..."
+        var vUrl='/api/inventory/browse_data/?stat=features&page=' + this.page;
+        this.$axios.get(vUrl)
+            .then((Response) => {
+                var o = Response.data.rows;
+                if(this.page==1){
+                    var data=[];
+                    for(var i=0;i<o.length;i++){
+                      data.push(
+                        {item_no:o[i].item_number,item_name:o[i].description,
+                        item_price:o[i].retail,icon_file: o[i].item_picture}
+                      )
                   }
                   this.items_features=data
                   this.message_next=""
@@ -181,7 +211,6 @@ export default {
             .catch((err) => {
                 this.$toast.show(err);
             })
-
        }
     },
     mounted() {
@@ -191,21 +220,21 @@ export default {
     },
 
     updated: function () {
+
     },
     created: function () {
 
     },
     computed: {
-       baseUrl() { 
-         return process.env.baseUrl},
-       siteUrl() { this.siteUrl2=process.env.siteUrl; 
-       return process.env.siteUrl}      
+       baseUrl() { return process.env.baseUrl},
+       siteUrl() { 
+          this.siteUrl2=process.env.siteUrl; 
+          return process.env.siteUrl
+       }      
     },
     complete() {
+
     }
-
-
-
   };
 </script>
 <style>
