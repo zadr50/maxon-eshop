@@ -8,7 +8,14 @@
                     <span class='el-icon-shopping-cart-2' />  
                     Data Pesanan
                 </h1>
-                <el-col >
+                <el-col span:23>
+                    <el-alert type='success'>
+                        <p>Terimakasih anda sudah memasukan order kepada kami</p>
+                        <p>Silahkan screenshoot pesanan ini atau bukti transfer anda kepada kami</p>
+                        <p><h1>Whatsup: 087874006900</h1></p>
+                    </el-alert>
+                </el-col>
+                <el-col >                    
                 <el-card>              
                     <p>Nomor Order# : <b>{{sales_order_number}}</b></p>
                     <p>Tanggal : {{sales_date}}</p>
