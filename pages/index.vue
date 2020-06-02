@@ -175,10 +175,10 @@ export default {
                 }
                 this.$toast.clear();
                 this.loading=false
-                this.message=""
+                this.message_next=""
             })
             .catch((err) => {
-                this.$toast.show(err);
+                this.$toast.show(err).goAway(6000);
             })
        },
        loadItemFeatures(){
@@ -196,8 +196,6 @@ export default {
                       )
                   }
                   this.items_features=data
-                  this.message_next=""
-
                 } else {
                   for(var i=0;i<o.length;i++){
                     this.items_features.push(
@@ -205,11 +203,13 @@ export default {
                       item_price:o[i].retail,icon_file: o[i].item_picture}
                     )
                   }
+                  this.$toast.clear();
+                  this.loading=false
                   this.message_next=""
                 }
             })
             .catch((err) => {
-                this.$toast.show(err);
+                this.$toast.show(err).goAway(6000);
             })
        }
     },

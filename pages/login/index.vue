@@ -15,7 +15,6 @@
   <el-row align-h="center" align-v="center" >
     <el-col :span="10" :xs=23>
       <el-card bg-variant="light">
-        <busy-overlay />
         <form @keydown.enter="login">
         <el-form-group label="Username">
           <el-label>Enter userid</el-label>
@@ -28,8 +27,9 @@
         </el-form-group>
 
         <el-col class="text-center" style="margin-top:15px;margin-bottom:10px" center>
-          <el-col :span=15>
-          <el-button @click="signup" type="warning" block> Sign Up</el-button>
+          <el-col :span=19>
+            <el-button @click="signup" type="warning" block> Sign Up</el-button>
+            <p style="font-size:small;color:gray"><i>Klik sign up untuk membuat user id baru anda</i></p>
           </el-col>
           <el-button @click="login" type="primary" block> Login</el-button>
         </el-col>
@@ -61,6 +61,9 @@
 <script>
 import cookie from 'vue-cookie'
 export default {
+  head: {
+    title:'User Login'
+  },
   middleware: [],
   components: {  },
   data() {

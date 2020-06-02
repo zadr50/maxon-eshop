@@ -16,7 +16,10 @@
                         <li><nuxt-link to="/profile"> Profile</nuxt-link></li>
                         <li><nuxt-link to="/cart"> Kantong Belanja</nuxt-link></li>
                         <li><nuxt-link to="/so/order"> History Order</nuxt-link></li>
+                        <li><nuxt-link to="/help"> Bantuan</nuxt-link>
+                        <li><nuxt-link to="/login/signup"> Pendaftaran</nuxt-link>
                         <li><nuxt-link to="/login/logout"> Logout</nuxt-link></li>
+
                         <p>You have [{{item_cart_count}}] in your shopping cart</p>
 
                     </div>

@@ -29,6 +29,12 @@
           <el-form-item label="Alamat">
               <el-input type="textarea" v-model="form.address"></el-input>
           </el-form-item>
+          <el-form-item label="Kota">
+              <el-input v-model="form.city"></el-input>
+          </el-form-item>
+          <el-form-item label="Handphone">
+              <el-input v-model="form.handphone"></el-input>
+          </el-form-item>
       </el-form>    
       <div style="text-align:center">
            <el-button type="primary" @click="onSubmit">Save</el-button>
@@ -57,7 +63,9 @@ export default {
                 handphone:'',
                 level:'',
                 email:'',
-                password:''
+                password:'',
+                city:'',
+                handphone:'',
             }
         }
     },
@@ -86,6 +94,8 @@ export default {
         formData.append("password",this.form.password)
         formData.append("email",this.form.email)
         formData.append("address",this.form.address)
+        formData.append("city",this.form.city)
+        formData.append("handphone",this.form.handphone)
         formData.append("mode","view");
         this.loading=true
         this.message="Execute... please wait"
