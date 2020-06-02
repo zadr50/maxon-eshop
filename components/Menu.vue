@@ -12,7 +12,7 @@
                         <li><nuxt-link to="/category"> Semuanya</nuxt-link></li>
                     </div>
                     <div class="box-cart">
-                        <p class="head-item-type"  style="height:25px;border-bottom:1px solid lightgray" ><span class='el-icon-position' /> My Profile & Cart</p>
+                        <p class="head-item-type"  style="height:25px;border-bottom:1px solid lightgray" ><span class='el-icon-position' /> My Profile</p>
                         <li><nuxt-link to="/profile"> Profile</nuxt-link></li>
                         <li><nuxt-link to="/cart"> Kantong Belanja</nuxt-link></li>
                         <li><nuxt-link to="/so/order"> History Order</nuxt-link></li>

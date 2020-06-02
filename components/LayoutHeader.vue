@@ -46,18 +46,21 @@
                   </el-col>
                 </nuxt-link>
               </el-col>
-              <el-col :span="14" :xs=24>
+              <el-col :span="18" :xs=24>
                 <el-row>
-                  <el-col >
-                    <el-input v-model="search" v-on:keyup.enter="onEnter" 
-                    placeholder="Ketik nama produk untuk cari" size="mini" 
-                    style="width:50%" />
-                    <nuxt-link to="#"  @click.native="onEnter">
-                      <span class='el-icon-search' style='font-size:25px;;margin-left:5px' />                                      
-                    </nuxt-link>
-                    <nuxt-link to="/cart">
-                      <span class='el-icon-shopping-cart-2' style='font-size:25px;;margin-left:5px' />                                      
-                    </nuxt-link>
+                  <el-col :span=24>
+                    <el-col :span=20 :xs=17>
+                      <el-input v-model="search" v-on:keyup.enter="onEnter" 
+                      placeholder="Ketik nama produk untuk cari" size="mini"/> 
+                    </el-col>
+                    <el-col :span=3 :xs=7>
+                      <nuxt-link to="#"  @click.native="onEnter">
+                        <span class='el-icon-search' style='font-size:25px;;margin-left:5px' />                                      
+                      </nuxt-link>
+                      <nuxt-link to="/cart">
+                        <span class='el-icon-shopping-cart-2' style='font-size:25px;;margin-left:5px' />                                      
+                      </nuxt-link>
+                    </el-col>
                   </el-col>
                 </el-row>
                 <el-row>

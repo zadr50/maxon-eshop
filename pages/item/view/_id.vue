@@ -3,12 +3,13 @@
         <h1>
             <span class="el-icon-back" @click="$router.back()"  />
             View Item
+            <span  v-loading="loading"  />
         </h1>
         <el-row>
-            <el-col :span="12" :xs="23" style="margin-top:10px;">
+            <el-col :span="12" :xs="23" style="margin-top:10px;"  >
                 <el-col :span=18>
                 <el-row style="height:390px;border:1px solid lightgray;margin-bottom:10px;border-radius:10px;text-align:center;padding-top:20px">
-                    <img :src="siteUrl+'tmp/'+photo" width="90%" height="90%"  />
+                    <img :src="siteUrl+'tmp/'+photo" width="90%" height="90%" />
                 </el-row>
                 </el-col>
                 <el-col :span=5 style="padding:5px;background:lightgray;text-align:center;margin-left:10px">
@@ -32,7 +33,7 @@
                         {{form.description}}
                     </div>
                     <div class="item_desc" style="min-height:200px;border:1px solid lightgray;border-radius:10px;padding:10px">
-                        <div v-html="form.special_features" /> 
+                        <div v-html="form.special_features"  v-loading="loading" /> 
                     </div>
                     <div class="sku" style="height:50px;padding:10px;width:100%;">
                         <div class="sku_id" style="float:left">{{form.item_number}}</div>
@@ -58,6 +59,7 @@ import cookie from 'vue-cookie'
 export default {
     data() {
         return {
+            loading:true,
             photo: 'no_image.png',
             photo_url:[],
             siteUrl2: '',
@@ -152,6 +154,7 @@ export default {
                     this.cookie_item_name=this.form.description
                     this.cookie_description=this.form.special_features
                     this.cookie_item_number=this.form.item_number
+                    this.loading=false
 
                 })
                 .catch((err) => {

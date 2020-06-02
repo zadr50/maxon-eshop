@@ -1,6 +1,8 @@
 <template>
     <div>
-      <h1>Search item with category</h1>
+      <h1>Search item with category
+          <span  v-loading="loading"  />
+      </h1>
       </hr>
       <el-row>
         <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
@@ -51,6 +53,7 @@ export default {
     },
     data() {
     return {
+      loading:true,
         page:1,
         message:'',
         category:this.$route.params.id,
@@ -93,7 +96,8 @@ export default {
                 }
                 this.items=data
                 this.message="Ready"
-                this.$toast.clear();
+                this.$toast.clear()
+                this.loading=false
             })
             .catch((err) => {
                 this.$toast.show(err);
