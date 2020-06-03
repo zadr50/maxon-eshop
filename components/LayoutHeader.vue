@@ -49,11 +49,11 @@
               <el-col :span="18" :xs=24>
                 <el-row>
                   <el-col :span=24>
-                    <el-col :span=20 :xs=17>
+                    <el-col :span=20 :xs=16>
                       <el-input v-model="search" v-on:keyup.enter="onEnter" 
                       placeholder="Ketik nama produk untuk cari" size="mini"/> 
                     </el-col>
-                    <el-col :span=3 :xs=7>
+                    <el-col :span=3 :xs=6>
                       <nuxt-link to="#"  @click.native="onEnter">
                         <span class='el-icon-search' style='font-size:25px;;margin-left:5px' />                                      
                       </nuxt-link>

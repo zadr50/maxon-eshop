@@ -79,10 +79,10 @@ export default {
                 supplier_number:'',
                 category:'',
                 discount:0,
-                item_picture: '',
-                item_picture2: '',
-                item_picture3: '',
-                item_picture4: '',
+                item_picture: 'no_image.png',
+                item_picture2: 'no_image.png',
+                item_picture3: 'no_image.png',
+                item_picture4: 'no_image.png',
             }
             
         }

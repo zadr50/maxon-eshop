@@ -7,7 +7,7 @@
         </el-col>
       </el-row>
       <el-row> 
-          <el-col :span="24" >
+          <el-col :span="24" :xs=0 >
             <myslider/>
           </el-col>
       </el-row>
@@ -106,7 +106,15 @@ import myslider from '~/components/Slider'
 
 export default {
     head: {
-      title: 'Toko MyPOS'
+      title: 'Toko MyPOS',
+        meta: [
+          {  hid: 'og:type', name: 'og:type', content: "article" },
+          {  hid: 'og:title', name: 'og:title', content: "Toko MyPos Online Shop" },
+          {  hid: 'og:image', name: 'og:image', content: "http://demo.maxonerp.com/tmp/tokomypos/imgfb.jpg"},
+          {  hid: 'og:url', name: 'og:url', content: "http://tokomypos.biz.id/"},
+          { hid: 'og:alt', name: 'og:alt', content: "Toko MyPos Online Shop"},
+          { hid: 'og:description', name: 'og:description', content: "Toko MyPos menyediakan segala kebutuhan anda untuk perhiasan, cendramata, alat kesehatan. Segera kunjungi kami untuk mendapatkan diskon yang menarik dan harga yang murah."},
+        ],
     },
     components: { 
       myslider
