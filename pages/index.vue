@@ -19,7 +19,7 @@
             <el-col  v-for="item in items_latest" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
                     <div class='foto' style="text-align:center;cursor:pointer; " 
-                      @click="boxItemClick(item.item_no)" >
+                      @click="boxItemClick(item.item_no,item.icon_file,item.item_name)" >
                       <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
                     </div>
                     <div class='item_name'>
@@ -73,7 +73,7 @@
             <el-col v-for="item in items_features" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
                     <div class='foto' style="text-align:center;cursor:pointer; " 
-                      @click="boxItemClick(item.item_no)" >
+                      @click="boxItemClick(item.item_no,item.icon_file,item.item_name)" >
                       <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
                     </div>
                     <div class='item_name'>
@@ -155,7 +155,10 @@ export default {
         this.message="Page: " + this.page
         this.loadItemFeatures()
       },
-       boxItemClick(item_no){
+       boxItemClick(item_no,icon_file,item_name){
+         cookie.set("cookie_item_picture",icon_file)
+         cookie.set("cookie_item_name",item_name)
+         cookie.set("cookie_item_number",item_no)
            window.open("item/view/"+item_no,"_self");
        },
        loadItemLatest(){

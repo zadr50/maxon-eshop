@@ -150,10 +150,10 @@ export default {
                     this.photo_url.push(this.form.item_picture3)
                     this.photo_url.push(this.form.item_picture4)
                     this.photo=this.photo_url[0]
-                    this.cookie_item_picture=this.siteUrl2 + 'tmp/'+this.photo
-                    this.cookie_item_name=this.form.description
+                    //this.cookie_item_picture=this.siteUrl2 + 'tmp/'+this.photo
+                    //this.cookie_item_name=this.form.description
                     this.cookie_description=this.form.special_features
-                    this.cookie_item_number=this.form.item_number
+                    //this.cookie_item_number=this.form.item_number
                     this.loading=false
 
                 })
