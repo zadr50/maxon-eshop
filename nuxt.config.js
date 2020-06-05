@@ -62,8 +62,9 @@ export default {
   },
   proxy: {
     '/api': {
-      target: 'http://demo.maxonerp.com/index.php/', 
+//      target: 'http://demo.maxonerp.com/index.php/', 
 //      target: 'http://localhost/talagasoft/simak/v7.maxon/index.php/',  
+      target: 'http://maxonerpserver.com/demo/index.php/',
       pathRewrite: {
         '^/api' : '/'
         }
@@ -71,7 +72,9 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL,
-    siteUrl: 'http://demo.maxonerp.com/',
+    target: 'http://maxonerpserver.com/demo/',
+    siteUrl: 'http://maxonerpserver.com/demo/',
+//    siteUrl: 'http://demo.maxonerp.com/',
 //    siteUrl: 'http://localhost/talagasoft/simak/v7.maxon/',
     proxyUrl: process.env.siteUrl+'index.php',
   },
