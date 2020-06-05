@@ -86,7 +86,16 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+//    extend (config, ctx) {
+//      if(ctx){
+
+//      }
+//    }
+
+     extend(config, { isDev , isClient }) {
+      if (isClient ) {
+        config.optimization.splitChunks.maxSize = 50000
+     }
     }
   },
   auth: {
