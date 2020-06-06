@@ -71,11 +71,11 @@ export default {
       }    
   },
   env: {
-//    baseUrl: 'http://tokomypos.biz.id/',
+    baseUrl: 'http://tokomypos.biz.id/',
     target: 'http://maxonerpserver.com/demo/',
     siteUrl: 'http://maxonerpserver.com/demo/',
 
-    baseUrl: 'http://localhost:3000/',
+//    baseUrl: 'http://localhost:3000/',
 //    siteUrl: 'http://demo.maxonerp.com/',
 //    siteUrl: 'http://localhost/talagasoft/simak/v7.maxon/',
 

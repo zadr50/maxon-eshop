@@ -62,11 +62,12 @@ export default {
     },
     computed: {
        siteUrl() { return process.env.siteUrl }      
+       baseUrl() { return process.env.baseUrl }      
 
     },
     methods: {
       box_item(cat){
-         window.open(process.env.baseUrl+"category/"+cat,"_self");
+         window.open(this.baseUrl+"category/"+cat,"_self");
       },
     }
 
