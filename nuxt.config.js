@@ -71,7 +71,7 @@ export default {
       }    
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    baseUrl: process.env.BASE_URL,
     target: 'http://maxonerpserver.com/demo/',
     siteUrl: 'http://maxonerpserver.com/demo/',
 //    siteUrl: 'http://demo.maxonerp.com/',
