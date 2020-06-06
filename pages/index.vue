@@ -113,7 +113,9 @@ export default {
 
     },
     computed: {
-       baseUrl() { return process.env.baseUrl},
+       baseUrl() {
+         return process.env.baseUrl
+       },
        siteUrl() { 
           this.siteUrl2=process.env.siteUrl; 
           return process.env.siteUrl

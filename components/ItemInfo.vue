@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="box-item" @click="boxItemClick(item.item_no)">
+    <div class="box-item" @click="boxItemClick(item.item_no)" title="View Item">
             <div class='foto' >
                 <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
             </div>
@@ -26,13 +26,12 @@ export default {
     },
     props: ['item'],
     computed: {
-       siteUrl() { return process.env.siteUrl },
-       baseUrl() { return process.env.baseUrl }      
-
+        siteUrl(){return process.env.siteUrl},
+        baseUrl(){return process.env.baseUrl}
     },
     methods: {
-      boxItemClick(item_no){
-         window.open(process.env.baseUrl+"/item/view/"+item_no,"_self");
+      boxItemClick(item_no){          
+         window.open(this.baseUrl+"item/view/"+item_no,"_self");
       },
     }
 
