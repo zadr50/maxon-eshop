@@ -71,7 +71,7 @@ export default {
       }    
   },
   env: {
-    baseUrl: 'http://tokomypos.biz.id:3000/',
+    baseUrl: 'http://tokomypos.biz.id/',
     target: 'http://maxonerpserver.com/demo/',
     siteUrl: 'http://maxonerpserver.com/demo/',
 
