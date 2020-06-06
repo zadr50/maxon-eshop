@@ -39,7 +39,7 @@
         <el-col :span=23></el-col>
         <el-row>
           <el-col :span=12 :xs=24 v-for="item in items" v-bind:key="item.line_number" >
-            <el-card style="margin:5px;padding:5px">
+            <el-card style="margin:5px;padding:5px;height:130px">
                 <el-col :span=7 style='margin-right:10px'>
                     <img :src="siteUrl+'tmp/'+item.item_picture" width="80" height="80" />                    
                 </el-col>

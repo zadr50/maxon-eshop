@@ -10,11 +10,11 @@
           <el-row>                
             <el-col :span=8 style="margin-right:5px">
                 <b>Nomor Telpon </b>
-                <el-input :key="nomor_hape" size="mini" placeholder="08000000000" />
+                <el-input v-model="nomor_hape" size="mini" placeholder="08000000000" />
             </el-col>
             <el-col :span=8 style="margin-right:5px">
                 <b>Nominal </b>
-                <el-input :key="pulsa_nominal" size="mini" />
+                <el-input v-model="pulsa_nominal" size="mini" />
             </el-col>
             <el-col :span=2>
                 <el-button type="primary" size="mini" style="margin-top:15px"> Beli</el-button>
