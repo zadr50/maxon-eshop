@@ -66,7 +66,7 @@ export default {
     },
     methods: {
       box_item(cat){
-         window.open(process.env.baseUrl+"/category/"+cat,"_self");
+         window.open(process.env.baseUrl+"category/"+cat,"_self");
       },
     }
 
