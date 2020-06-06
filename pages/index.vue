@@ -12,6 +12,24 @@
           </el-col>
       </el-row>
       <el-row>
+        <el-col :span=24>
+          <el-col :span=14 >
+            <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
+                <span class='el-icon-position' /> Category Pilihan
+            </el-col>
+            <el-card style="padding-bottom:10px">
+              <categoryPilihan />
+            </el-card>
+          </el-col>
+          <el-col :span=10>
+          <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
+              <span class='el-icon-position' /> TopUp & Pulsa
+          </el-col>
+            <pulsaHp />
+          </el-col>
+        </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
             <span class='el-icon-position' /> Latest Products
         </el-col>
@@ -53,6 +71,8 @@ import cookie from 'vue-cookie'
 import myslider from '~/components/Slider'
 import itemFeatures from '~/components/ItemFeatures'
 import itemLatest from '~/components/ItemLatest'
+import pulsaHp from '~/components/PulsaHp'
+import categoryPilihan from '~/components/CategoryPilihan'
 export default {
     head: {
       title: 'Toko MyPOS',
@@ -66,6 +86,7 @@ export default {
         ],
     },
     components: { 
+      pulsaHp, categoryPilihan,
       myslider, 
       'item-features':itemFeatures,
       'item-latest':itemLatest,
@@ -76,7 +97,7 @@ export default {
         message_next:"",
         message:'',
         upHere:false,
-        loading: true
+        loading: false
       }
     },
     methods: {
@@ -99,7 +120,7 @@ export default {
        }      
     },
     complete() {
-
+      this.loading=false
     }
   };
 </script>
