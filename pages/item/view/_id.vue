@@ -6,28 +6,28 @@
             <span  v-loading="loading"  />
         </h1>
         <el-row>
-            <el-col :span="12" :xs="23" style="margin-top:10px;"  >
-                <el-col :span=18>
+            <el-col :span="10" :xs="23" style="margin-top:10px;"  >
+                <el-col :span=23>
                 <el-row style="height:390px;border:1px solid lightgray;margin-bottom:10px;border-radius:10px;text-align:center;padding-top:20px">
                     <img :src="siteUrl+'tmp/'+photo" width="90%" height="90%" />
                 </el-row>
                 </el-col>
-                <el-col :span=5 style="padding:5px;background:lightgray;text-align:center;margin-left:10px">
-                    <el-col :span=23>
+                <el-col :span=23 style="padding:5px;background:lightgray;text-align:center;margin-top:10px">
+                    <el-col :span=6>
                        <img :src="siteUrl+'tmp/'+form.item_picture" width="90%" height="90" @click="show_photo(1)" style="cursor:pointer" />
                     </el-col>
-                    <el-col :span=23>
+                    <el-col :span=6>
                         <img :src="siteUrl+'tmp/'+form.item_picture2"  width="90%" height="90" @click="show_photo(2)" style="cursor:pointer"/>
                     </el-col>
-                    <el-col :span=23>
+                    <el-col :span=6>
                         <img :src="siteUrl+'tmp/'+form.item_picture3"  width="90%" height="90" @click="show_photo(3)" style="cursor:pointer"/>
                     </el-col>
-                    <el-col :span=23>
+                    <el-col :span=6>
                         <img :src="siteUrl+'tmp/'+form.item_picture4"  width="90%" height="90" @click="show_photo(4)" style="cursor:pointer"/>
                     </el-col>
                 </el-col>
             </el-col>
-            <el-col :span="10" :xs="23" style="height:400px;margin-top:20px">
+            <el-col :span="14" :xs="23" style="height:400px;margin-top:20px">
                 <div class="item">
                     <div class="item_name" style="height:50px;font-size:15px;font-weight:900">
                         {{form.description}}
@@ -136,7 +136,7 @@ export default {
             
         },
         loadItem(){
-            this.$toast.show("Execute...please wait!");
+            this.$toast.show("Execute...please wait!").goAway(6000);
             var vUrl='/api/inventory/find/'+this.id;
             this.$axios.get(vUrl)
                 .then((Response) => {
@@ -150,11 +150,12 @@ export default {
                     this.photo_url.push(this.form.item_picture3)
                     this.photo_url.push(this.form.item_picture4)
                     this.photo=this.photo_url[0]
-                    //this.cookie_item_picture=this.siteUrl2 + 'tmp/'+this.photo
-                    //this.cookie_item_name=this.form.description
+                    this.cookie_item_picture=this.siteUrl2 + 'tmp/'+this.photo
+                    this.cookie_item_name=this.form.description
                     this.cookie_description=this.form.special_features
-                    //this.cookie_item_number=this.form.item_number
+                    this.cookie_item_number=this.form.item_number
                     this.loading=false
+
 
                 })
                 .catch((err) => {

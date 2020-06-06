@@ -9,26 +9,9 @@
             <span class='el-icon-position' />category: {{category}} {{message}}
         </el-col>
         <el-col :span="24" >
-            <el-col v-for="item in items" :key="item" :span="4"  :md="6"  :sm="6" :xs="12" >
-              <el-card class="box-item" >
-                <a :href="'../item/view/'+item.item_no">
-                  <div class="divItem" >
-                    <div class='foto' style="text-align:center;cursor:pointer; ">
-                       <img v-bind:src="siteUrl+'tmp/'+item.icon_file" width="100%" height="170"  />                                   
-                    </div>
-                    <div class='item_name'>
-                      <p>{{item.item_name}}</p>  
-                    </div>
-                    <div class="item_foot">
-                        <div class="sku">
-                          <p>{{item.item_no}}</p>
-                        </div>
-                        <div class="price">
-                          <p>Rp.{{Number(item.item_price).toLocaleString()}}</p>
-                        </div>
-                    </div>
-                  </div>
-                </a>                    
+            <el-col v-for="item in items" :key="item.item_no" :span="4"  :md="6"  :sm="6" :xs="12" >
+              <el-card  >
+                <itemInfo :item="item" />
               </el-card>
               <p v-if="items=='null'">Not found items</p>
             </el-col>            
@@ -47,8 +30,10 @@
 </template>
 
 <script>
+import itemInfo from '~/components/ItemInfo'
 
 export default {
+    components: {itemInfo},
     head: {
         title:"Search Item"
     },

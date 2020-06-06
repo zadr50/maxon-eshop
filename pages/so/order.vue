@@ -19,8 +19,7 @@
       <el-button size="mini" type="success" @click="handleRefresh()"><span class='el-icon-refresh-left'> Refresh</span></el-button>
   <el-table :data="tableData.filter(data => !search || data.company.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
-    <el-table-column v-for="col in columns"  :label="col.label" :prop="col.field" 
-        v-bind:key="col"  v-model="tableColumn">
+    <el-table-column v-for="col in columns"  :label="col.label" :prop="col.field" v-bind:key="col.field"  >
     </el-table-column>
     <el-table-column
       align="right">

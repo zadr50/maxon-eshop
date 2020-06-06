@@ -19,7 +19,7 @@
         </div>
         <el-col>
             <el-card>              
-                <table width='100%' :model="tableData" :bind="tableData">
+                <table width='100%' >
                     <tr><td>Nomor Order#</td><td><b>{{nomor_so}}</b></td></tr>
                     <tr><td>Tanggal </td><td>{{sales_date}}</td></tr>
                     <tr>
@@ -178,7 +178,7 @@ export default {
        },
        loadCartRun(){
         var vUrl='/api/sales_order/cart/'+this.nomor_so;
-        this.$toast.show("Execute...please wait!");
+        this.$toast.show("Execute...please wait!").goAway(6000);
         this.$axios.get(vUrl)
             .then((Response) => {
                 this.$toast.clear();
@@ -239,7 +239,7 @@ export default {
             .then((Response) => {
                 var d=Response.data;
                 if(d.success){
-                    this.$toast.show("Success.. silahkan lakukan pembayaran");
+                    this.$toast.show("Success.. silahkan lakukan pembayaran").goAway(6000);
                     window.open("/checkout","_self")
                 } else {
                     $this.$toast.show(d.msg).goAway(6000);

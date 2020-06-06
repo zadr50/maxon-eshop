@@ -36,7 +36,7 @@
         <el-divider></el-divider>
         <el-table  :data="tableData" >
           <el-table-column v-for="col in columns"  :label="col.label" :prop="col.field" 
-              v-bind:key="col"  v-model="tableColumn">
+              v-bind:key="col.field" >
           </el-table-column>
         </el-table>
       </el-col>

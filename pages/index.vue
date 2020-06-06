@@ -116,11 +116,6 @@ export default {
   color:rebeccapurple;
   font-weight: 900;
 }
-.box-item {
-  margin-right:10px;
-  margin-bottom:10px;
-  height:280px;
-}
  .el-carousel__item h3 {
     color: #475669;
     font-size: 18px;
@@ -136,16 +131,4 @@ export default {
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
-.price {
-    color: #f56c6c;
-    font-size: larger;
-    float: right;
-}
-.sku {
-    float: left;
-    margin-right: 10px;
-}
-.box-item :hover {
-    background: lightgray;
-}
 </style>
