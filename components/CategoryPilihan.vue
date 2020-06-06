@@ -61,7 +61,7 @@ export default {
         }
     },
     computed: {
-       siteUrl() { return process.env.siteUrl }      
+       siteUrl() { return process.env.siteUrl },      
        baseUrl() { return process.env.baseUrl }      
 
     },
