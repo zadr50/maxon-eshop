@@ -1,12 +1,5 @@
 <template>
-    <div style="padding-bottom:30px;padding-top:30px;margin-top:20px;padding:10px">
-        <el-row style="height:50px;padding:5px;">
-            <el-col :span=24>                
-                <el-col :span=4>2020@MyPos Online Shop</el-col>
-                <el-col :span=20 style="text-align:right">Folow Us: Facebook | Instagram | Twitter | LinkedIn | Pinterest</el-col>
-            </el-col>
-            <div class='line'></div>           
-        </el-row>
+    <div style="padding-bottom:30px;padding-top:30px;padding:10px">        
         <el-row>
             <el-col :span=7 :xs=23>
                 <h3>Online Shopping Mall Terkemuka di Indonesia</h3>

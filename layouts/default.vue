@@ -19,7 +19,13 @@
     </el-row>
     <el-row>
       <el-col :span=24>
-        <div style="display:block;background:lightgray;color:black">
+        <el-row style="height:50px;padding:5px;background:#b603c1;color:white;margin-top:20px">
+          <el-col :span=24>                
+                <el-col :span=4>2020@MyPos Online Shop</el-col>
+                <el-col :span=20 style="text-align:right">Folow Us: Facebook | Instagram | Twitter | LinkedIn | Pinterest</el-col>
+          </el-col>
+        </el-row>
+        <div style="background:linear-gradient(-180deg,#b603c1,#e014ec);color:white">
           <LayoutFooter/>
         </div>
      </el-col>

@@ -5,7 +5,7 @@
             <el-row>
               <el-col :span=10 :xs=23 :sm=11>
                 <span class="el-icon-back" @click="$router.back()" style='font-size:20px;cursor:pointer' />
-                <span class='el-icon-phone-outline' style='font-size:20px'></span>+62-087874006900
+                <span class='el-icon-phone-outline' style='font-size:20px'></span>{{phone}}
               </el-col>
               <el-col :span=13 :xs=23 >
                 <span class='el-icon-shopping-cart-2' style='font-size:20px;'></span> 
@@ -15,7 +15,7 @@
           </el-col>
           <el-col :span='13' :xs=24 :sm=9 align="right">
             <span  v-loading="loading" />
-            <span> Welcome: {{username}} </span>
+            <span> User: {{username}} </span>
              <span v-if="isLoggedIn=='false' || isLoggedIn=='' || isLoggedIn==null">
               <nuxt-link to="/login">
                   <span class='el-icon-user' style='font-size:20px;'></span>Log In 
@@ -40,18 +40,17 @@
                   <el-col class="button2" style="margin-right:15px">                                
                     <span class='el-icon-goods' style='font-size:40px;float:left'/> 
                     <div>
-                      <p style='font-size:20px'>Toko MyPos</p>
-                      <p style='font-size:15px'>"Online Shop Anda"</p>
+                      <p style='font-size:20px'>{{nama_toko}}</p>
+                      <p style='font-size:15px'>{{slogan}}</p>
                     </div>
                   </el-col>
                 </nuxt-link>
               </el-col>
-              <el-col :span="18" :xs=24>
+              <el-col :span=18 :xs=24>
                 <el-row>
                   <el-col :span=24>
                     <el-col :span=20 :xs=16>
-                      <el-input v-model="search" v-on:keyup.enter="onEnter" 
-                      placeholder="Ketik nama produk untuk cari" size="mini"/> 
+                      <el-input v-model="search" v-on:keyup.enter="onEnter"  placeholder="Ketik nama produk untuk cari" size="mini"/> 
                     </el-col>
                     <el-col :span=3 :xs=6>
                       <nuxt-link to="#"  @click.native="onEnter">
@@ -100,6 +99,9 @@ export default {
     },
     data() {
       return {
+        nama_toko:'Toko MyPos',
+        slogan:'Online Shop Anda',
+        phone:'000000000',
         search:'',
           drawer: false,
           item_cart_count:0,
@@ -122,11 +124,34 @@ export default {
       }
       this.loading=false
       this.search=cookie.get("search")
+      this.loadToko();
     },
     methods: {
       onEnter(){
         cookie.set("search",this.search)
         window.open('/search','_self')
+      },
+      loadToko(){
+        var vUrl='api/company/view_json';
+        this.$toast.show("Execute...please wait!").goAway(6000);
+        this.$axios.get(vUrl)
+            .then((Response) => {
+                var d=Response.data
+                console.log(d)
+                if(d.success){
+                    this.nama_toko=d.row.company_name
+                    this.alamat=d.row.street
+                    this.nama_kontak = d.row.invoice_contact
+                    this.phone=d.row.phone_number
+                    this.slogan=d.row.slogan
+                    this.email=d.row.email
+                } else {
+                    this.$toast.show("Errror!"+d.message).goAway(6000);
+                }
+            })
+            .catch((err) => {
+                this.$toast.show(err).goAway(6000);
+            })
 
       }
     },
