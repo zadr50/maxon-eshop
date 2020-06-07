@@ -71,7 +71,7 @@ export default {
       }    
   },
   env: {
-//   baseUrl: 'http://localhost:7241/',
+//   baseUrl: 'http://localhost:3000/',
     baseUrl: 'http://tokomypos.biz.id/',
 
     siteUrl: 'http://maxonerpserver.com/demo/',
@@ -79,6 +79,7 @@ export default {
 //    siteUrl: 'http://localhost/talagasoft/simak/v7.maxon/',
 
     proxyUrl: process.env.siteUrl+'index.php',
+    npm_package_description: 'Toko MyPos Online Shop',
   },
   /*
   ** Build configuration
@@ -88,17 +89,11 @@ export default {
     /*
     ** You can extend webpack config here
     */
-//    extend (config, ctx) {
-//      if(ctx){
-
-//      }
-//    }
-
      extend(config, { isDev , isClient }) {
-      if (isClient ) {
-//        config.optimization.splitChunks.maxSize = 50000
+       if (isClient ) {
+          config.optimization.splitChunks.maxSize = 50000
+       }
      }
-    }
   },
   auth: {
     // Options 
@@ -139,6 +134,4 @@ export default {
   router: {
     ///middleware: ['auth']
   },
-  loading: true,    //hide loading progress bar
-
 }

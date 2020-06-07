@@ -40,21 +40,8 @@
         <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
             <span class='el-icon-position' /> Promotion
         </el-col>
-        <el-col style="height:300px;">   
-          <el-carousel :interval="4000" type="card" height="200px">
-              <el-carousel-item>
-                    <img v-bind:src="siteUrl+'tmp/promo1.jpg'" width="100%" height="180"/>
-              </el-carousel-item>
-              <el-carousel-item>
-                    <img v-bind:src="siteUrl+'tmp/promo2.jpg'" width="100%" height="180"/>
-              </el-carousel-item>
-              <el-carousel-item>
-                    <img v-bind:src="siteUrl+'tmp/promo3.jpg'" width="100%" height="180"/>
-              </el-carousel-item>
-              <el-carousel-item>
-                    <img v-bind:src="siteUrl+'tmp/promo4.jpg'" width="100%" height="180"/>
-              </el-carousel-item>
-            </el-carousel>
+        <el-col style="height:300px;">
+          <mp-banner-promo />           
         </el-col>
       </el-row>
       <el-row>
@@ -73,6 +60,7 @@ import itemFeatures from '~/components/ItemFeatures'
 import itemLatest from '~/components/ItemLatest'
 import pulsaHp from '~/components/PulsaHp'
 import categoryPilihan from '~/components/CategoryPilihan'
+import BannerPromo from '~/components/BannerPromo'
 export default {
     head: {
       title: 'Toko MyPOS',
@@ -86,7 +74,8 @@ export default {
         ],
     },
     components: { 
-      pulsaHp, categoryPilihan,
+      pulsaHp, categoryPilihan, 
+      'mp-banner-promo':BannerPromo,
       myslider, 
       'item-features':itemFeatures,
       'item-latest':itemLatest,
