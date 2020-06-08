@@ -129,7 +129,9 @@ export default {
     methods: {
       onEnter(){
         cookie.set("search",this.search)
-        window.open('/search','_self')
+        this.$router.push("/search")
+        //window.open('/search','_self')
+
       },
       loadToko(){
         var vUrl='api/company/view_json';

@@ -106,7 +106,8 @@ export default {
                 if(Response.data.success){
                     this.message=Response.data.msg;
                     this.loading=false
-                    window.open('/cart','_self')
+                    //window.open('/cart','_self')
+                    this.$router.push("/cart")
                 } else {
                     this.message=Response.data.msg                    
                 }

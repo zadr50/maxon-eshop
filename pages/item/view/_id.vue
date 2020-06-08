@@ -124,7 +124,8 @@ export default {
                         cookie.set("order_no",this.order_no)
                     }           
                     this.$toast.show("Success data sudah ditambahkan di kantong belanja anda")
-                    window.open("/cart","_self")
+                    //window.open("/cart","_self")
+                    this.$router.push("/cart")
 
                 })
                 .catch((err) => {

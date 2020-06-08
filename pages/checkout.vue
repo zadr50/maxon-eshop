@@ -1,7 +1,7 @@
 <template>
     <div>
       <el-row>
-         <el-col :span=12 :xs=23>  
+         <el-col :span=24 :xs=24>  
             <el-col>
                 <h1>
                     <span class="el-icon-back" @click="$router.back()"  />

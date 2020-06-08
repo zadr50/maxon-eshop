@@ -13,7 +13,7 @@
       </el-row>
       <el-row>
         <el-col :span=24>
-          <el-col :span=14 >
+          <el-col :span=14 :xs=23>
             <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
                 <span class='el-icon-position' /> Category Pilihan
             </el-col>
@@ -21,7 +21,7 @@
               <categoryPilihan />
             </el-card>
           </el-col>
-          <el-col :span=10>
+          <el-col :span=10 :xs=23>
           <el-col :span="24" class="head-item-type" style="height:40px;padding-top:15px">
               <span class='el-icon-position' /> TopUp & Pulsa
           </el-col>

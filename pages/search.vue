@@ -1,16 +1,6 @@
 <template>
     <div>
         <el-row>
-            <el-card>
-                <p>Search test</p>
-                <el-input v-model='search' placeholder="Enter text to search" style="width:80%"/>
-                    <nuxt-link to="#"  @click.native="onEnter">
-                      <span class='el-icon-search' style='font-size:25px;;margin-left:5px' />                                      
-                    </nuxt-link>
-
-            </el-card>
-        </el-row>
-        <el-row>
            <el-col :span="24" >
             <el-col v-for="item in items" :key="item.item_no" :span="4"  :md="6"  :sm="6" :xs="12" >
               <el-card class="box-item" >
@@ -51,9 +41,6 @@ export default {
     },
     methods: {
       onEnter(){
-        cookie.set("search",this.search)
-        window.open('/search','_self')
-
       },
         prevPage(){
             this.page--
@@ -65,13 +52,13 @@ export default {
             this.loadItems()
         },
        boxItemClick(item_no){
-             window.open("../item/view/"+item_no,"_self");
+         this.$route.push("item/view/"+item_no)
        },
       loadItems(){
         var vUrl='/api/inventory/browse_data/?page='+this.page+'&tb_search=' + this.search;
         this.$toast.clear()
         this.message="Execute...please wait!"
-        this.$toast.show(this.message);
+        this.$toast.show(this.message).goAway(5000);
         this.$axios.get(vUrl)
             .then((Response) => {
                 var o = Response.data.rows;

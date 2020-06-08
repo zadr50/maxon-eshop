@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import cookie from 'vue-cookie'
 import itemInfo from '~/components/ItemInfo'
 
 export default {
@@ -47,7 +48,7 @@ export default {
       }
     },
     mounted(){
-        if(this.category=="undefined")this.category=""
+        if(this.category=="undefined")this.category=""        
         this.loadItems()
     },
     methods: {
@@ -66,7 +67,8 @@ export default {
   
       loadItems(){
         var cat=this.category
-        if(cat=="undefined")$cat=""
+        if(cat=="undefined")cat=""
+        cookie.set("category",cat)
         var vUrl='/api/inventory/browse_data/?page='+this.page+'&sid_cat='+cat;
         this.message="Execute...please wait!"
         this.$toast.show(this.message);

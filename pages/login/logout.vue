@@ -25,8 +25,10 @@ export default {
         cookie.delete("cookie_item_number")
         cookie.delete("cookie_item_picture")
         cookie.delete("siteUrl2")
+        cookie.delete("category")
 
-        window.open("/","_self")
+        //window.open("/","_self")
+        this.$route.push("/")
         this.$toast.show("Logout Success")
     }
 }

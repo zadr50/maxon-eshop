@@ -125,7 +125,7 @@ export default {
         loadSalesOrder(){
             this.nomor_so=cookie.get("order_no")
             this.message="Execute...please wait!"        
-            this.$toast.show(this.message)
+            this.$toast.show(this.message).goAway(6000)
             var vUrl='/api/sales_order/view/'+this.nomor_so+"?json=true"
             this.$axios.get(vUrl)
             .then((Response) => {         
@@ -139,7 +139,7 @@ export default {
                 this.sub_total=d.sub_total
                 this.freight=d.freight
                 this.amount=d.amount
-                if(this.amount==0)this.amount=this.sub_total
+                if(this.amount==0)this.amount=this.sub_total                
             })
             .catch((err) => {
                 this.$toast.show("Error").goAway(6000);
@@ -178,7 +178,6 @@ export default {
        },
        loadCartRun(){
         var vUrl='/api/sales_order/cart/'+this.nomor_so;
-        this.$toast.show("Execute...please wait!").goAway(6000);
         this.$axios.get(vUrl)
             .then((Response) => {
                 this.$toast.clear();
@@ -240,9 +239,10 @@ export default {
                 var d=Response.data;
                 if(d.success){
                     this.$toast.show("Success.. silahkan lakukan pembayaran").goAway(6000);
-                    window.open("/checkout","_self")
+                    //window.open("/checkout","_self")
+                    this.$router.push('/checkout')
                 } else {
-                    $this.$toast.show(d.msg).goAway(6000);
+                    this.$toast.show(d.msg).goAway(6000);
                 }
             })
             .catch((err) => {
@@ -253,9 +253,11 @@ export default {
        profile(){
            if(this.user_id=="" || this.user_id==null || this.logged_in==false || this.nomor_so==""){
                this.$toast.show("Silahkan login terlebih dahulu dan isi alamat pengiriman anda !");
-               window.open("/login","_self")               
+               //window.open("/login","_self")
+                this.$router.push("/login")               
             } else {
-               window.open("/profile","_self")
+               //window.open("/profile","_self")
+               this.$router.push("/profile")
             }
        }
     },

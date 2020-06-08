@@ -15,26 +15,23 @@
   <el-row align-h="center" align-v="center" >
     <el-col :span="10" :xs=23>
       <el-card bg-variant="light">
-        <form @keydown.enter="login">
-        <el-form-group label="Username">
-          <el-label>Enter userid</el-label>
-          <el-input v-model="username" placeholder="anything" ref="username" />
-        </el-form-group>
+        <el-form ref='form' label-width="120px" @keydown.enter="login">
+          <el-form-item label="Username">
+            <el-input v-model="username" placeholder="username" ref="username" />
+          </el-form-item>
+          <el-form-item label="Password" >
+            <el-input type="password" v-model="password" placeholder="password" />
+          </el-form-item>
 
-        <el-form-group label="Password" >
-          <el-label >Enter password</el-label>
-          <el-input type="password" v-model="password" placeholder="123" />
-        </el-form-group>
-
-        <el-col class="text-center" style="margin-top:15px;margin-bottom:10px" center>
-          <el-col :span=19>
-            <el-button @click="signup" type="warning" block> Sign Up</el-button>
-            <p style="font-size:small;color:gray"><i>Klik sign up untuk membuat user id baru anda</i></p>
+          <el-col class="text-center" style="margin-top:15px;margin-bottom:10px" center>
+            <el-col :span=19>
+              <el-button @click="signup" type="warning" block> Sign Up</el-button>
+              <p style="font-size:small;color:gray"><i>Klik sign up untuk membuat user id baru anda</i></p>
+            </el-col>
+            <el-button @click="login" type="primary" block> Login</el-button>
           </el-col>
-          <el-button @click="login" type="primary" block> Login</el-button>
-        </el-col>
-        <div style='color:red'>{{message}}</div>
-        </form>
+          <div style='color:red'>{{message}}</div>
+        </el-form>
       </el-card>
     </el-col>
     <el-col :md="5" class="text-center pt-4" v-show="false">
@@ -113,7 +110,8 @@ export default {
               cookie.set("logged_in",true)
               cookie.set("user_info",d.rows)
               this.message="Success.. redirect to home"              
-              window.open("/","_self")
+              //window.open("/","_self")
+              this.$router.push("/")
             } else {
               this.message="Wrong username or password !"
             }
@@ -146,7 +144,8 @@ export default {
               cookie.set("user_info","")
               this.message="Success.. redirect to home"
               this.$toast.show(this.message)              
-              window.open("/","_self")
+              //window.open("/","_self")
+              this.$router.push("/")
             } else {
               this.message="Error: " + d.msg + "Silahkan di ulangi lagi"
               this.$toast.show(this.message).goAway(6000)

@@ -19,6 +19,7 @@
 </div>
 </template>
 <script>
+import cookie from 'vue-cookie'
 export default {
     data(){
         return {
@@ -31,7 +32,13 @@ export default {
     },
     methods: {
       boxItemClick(item_no){          
-         window.open(this.baseUrl+"item/view/"+item_no,"_self");
+         ///window.open(this.baseUrl+"item/view/"+item_no,"_self");
+         var category=cookie.get("category")
+         if(category==""){
+             this.$router.push("item/view/"+item_no)
+         } else {
+             this.$router.push("../item/view/"+item_no)
+         }
       },
     }
 
