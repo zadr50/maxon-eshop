@@ -109,6 +109,10 @@ export default {
               cookie.set("username",d.rows.username)
               cookie.set("logged_in",true)
               cookie.set("user_info",d.rows)
+              this.$store.commit('setLoggedIn',true)
+              this.$store.commit('setUserId',this.username)
+              this.$store.commit('setUserName',d.rows.username)
+
               this.message="Success.. redirect to home"              
               //window.open("/","_self")
               this.$router.push("/")
@@ -142,6 +146,10 @@ export default {
               cookie.set("username",this.username)
               cookie.set("logged_in",true)
               cookie.set("user_info","")
+              this.$store.commit('setLoggedIn',true)
+              this.$store.commit('setUserId',this.username)
+              this.$store.commit('setUserName',this.username)
+
               this.message="Success.. redirect to home"
               this.$toast.show(this.message)              
               //window.open("/","_self")

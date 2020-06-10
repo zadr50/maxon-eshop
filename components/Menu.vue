@@ -1,40 +1,41 @@
 <template>
-                <div style="padding-left:10px;height:1000px;margin-right:10px">
-                    <div class="box-category">
-                        <p class="head-item-type" style="height:25px;border-bottom:1px solid lightgray;margin-bottom:15px"><span class='el-icon-position' /> Categories</p> 
-                        <li><nuxt-link to="/category/kalung"> Kalung</nuxt-link></li>
-                        <li><nuxt-link to="/category/gelang"> Gelang</nuxt-link></li>
-                        <li><nuxt-link to="/category/diy"> DIY</nuxt-link></li>
-                        <li><nuxt-link to="/category/perlengkapan"> Perlengkapan</nuxt-link></li>
-                        <li><nuxt-link to="/category/aksesori"> Aksesori</nuxt-link></li>
-                        <li><nuxt-link to="/category/souvenir"> Souvenir & Pesta</nuxt-link></li>
-                        <li><nuxt-link to="/category/apd"> Apd (Medical)</nuxt-link></li>
-                        <li><nuxt-link to="/category"> Semuanya</nuxt-link></li>
-                    </div>
-                    <div class="box-cart">
-                        <p class="head-item-type"  style="height:25px;border-bottom:1px solid lightgray" ><span class='el-icon-position' /> My Profile</p>
-                        <li><nuxt-link to="/profile"> Profile</nuxt-link></li>
-                        <li><nuxt-link to="/cart"> Kantong Belanja</nuxt-link></li>
-                        <li><nuxt-link to="/so/order"> History Order</nuxt-link></li>
-                        <li><nuxt-link to="/help"> Bantuan</nuxt-link>
-                        <li><nuxt-link to="/login/signup"> Pendaftaran</nuxt-link>
-                        <li><nuxt-link to="/login/logout"> Logout</nuxt-link></li>
+  <div style="padding-left:10px;height:1000px;margin-right:10px">
+      <div class="box-category">
+          <p class="head-item-type" style="height:25px;border-bottom:1px solid lightgray;margin-bottom:15px"><span class='el-icon-position' /> Categories</p> 
+          <li><nuxt-link to="/category/kalung"> Kalung</nuxt-link></li>
+          <li><nuxt-link to="/category/gelang"> Gelang</nuxt-link></li>
+          <li><nuxt-link to="/category/diy"> DIY</nuxt-link></li>
+          <li><nuxt-link to="/category/perlengkapan"> Perlengkapan</nuxt-link></li>
+          <li><nuxt-link to="/category/aksesori"> Aksesori</nuxt-link></li>
+          <li><nuxt-link to="/category/souvenir"> Souvenir & Pesta</nuxt-link></li>
+          <li><nuxt-link to="/category/apd"> Apd (Medical)</nuxt-link></li>
+          <li><nuxt-link to="/category"> Semuanya</nuxt-link></li>
+      </div>
+      <div class="box-cart">
+          <p class="head-item-type"  style="height:25px;border-bottom:1px solid lightgray" ><span class='el-icon-position' /> My Profile</p>
+          <li><nuxt-link to="/profile"> Profile</nuxt-link></li>
+          <li><nuxt-link to="/cart"> Kantong Belanja</nuxt-link></li>
+          <li><nuxt-link to="/so/order"> History Order</nuxt-link></li>
+          <li><nuxt-link to="/help"> Bantuan</nuxt-link>
+          <li><nuxt-link to="/login/signup"> Pendaftaran</nuxt-link>
+          <li><nuxt-link to="/login/logout"> Logout</nuxt-link></li>
 
-                        <p>You have [{{item_cart_count}}] in your shopping cart</p>
+          <p>You have [{{$store.state.itemCartCount}}] in your shopping cart</p>
 
-                    </div>
-                    <div class="box-comp">
-                        <p class="head-item-type" style="height:25px;border-bottom:1px solid lightgray"><span class='el-icon-position' /> Compare Products</p>
-                        <p>You have no items to compare</p>
-                    </div>
-                    <div class="box-promo-side">
-                        <p class="head-item-type" style="height:25px;border-bottom:1px solid lightgray"><span class='el-icon-position' /> Promotion</p>
-                        <p>This period promo</p>
-                    </div>
-                    <div class="box-promo-side">
-                    </div>
+      </div>
+      <div class="box-comp">
+          <p class="head-item-type" style="height:25px;border-bottom:1px solid lightgray">
+            <span class='el-icon-position' /> Compare</p>
+          <p>You have no items to compare</p>
+      </div>
+      <div class="box-promo-side">
+          <p class="head-item-type" style="height:25px;border-bottom:1px solid lightgray"><span class='el-icon-position' /> Promotion</p>
+          <p>This period promo</p>
+      </div>
+      <div class="box-promo-side">
+      </div>
 
-                </div>
+  </div>
 </template>
 <script>
 import cookie from "vue-cookie"

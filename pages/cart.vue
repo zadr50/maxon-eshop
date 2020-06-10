@@ -79,8 +79,9 @@
             </el-card>
         </el-row>
         <el-row>
-            <div style='text-align:center'>
-            <el-button type="primary" @click="checkout" style="margin-top:20px"> Checkout </el-button>
+            <div style='text-align:center;margin-top:20px'>
+            <el-button type="warning" @click="lanjut" > Lanjut Belanja</el-button>
+            <el-button type="primary" @click="checkout" > Checkout</el-button>
             </div>
         </el-row>
       </div>
@@ -140,6 +141,9 @@ export default {
                 this.freight=d.freight
                 this.amount=d.amount
                 if(this.amount==0)this.amount=this.sub_total                
+                this.$store.commit('setOrderNo',this.nomor_so)
+                this.$store.commit('setItemAmount',this.amount)
+
             })
             .catch((err) => {
                 this.$toast.show("Error").goAway(6000);
@@ -185,6 +189,8 @@ export default {
                 if (this.items.length==0){
                     this.message_cart="Belum ada data barang di keranjang, silahkan belanja dulu"
                 }
+                this.$store.commit('setOrderNo',this.nomor_so)
+                this.$store.commit('setItemCount',this.items.length)
 
             })
             .catch((err) => {
@@ -250,6 +256,9 @@ export default {
             })               
            
        },
+       lanjut(){
+           this.$router.push("/")
+       },
        profile(){
            if(this.user_id=="" || this.user_id==null || this.logged_in==false || this.nomor_so==""){
                this.$toast.show("Silahkan login terlebih dahulu dan isi alamat pengiriman anda !");
@@ -267,6 +276,10 @@ export default {
       this.loadUser()
       this.item_cart_count=cookie.get("order_item_count",0)
       this.item_cart_amount=cookie.get("order_item_amount",0)
+      this.$store.commit('setOrderNo',this.nomor_so)
+      this.$store.commit('setItemCount',this.item_cart_count)
+      this.$store.commit('setItemAmount',this.item_cart_amount)
+
       
     },
     computed: {

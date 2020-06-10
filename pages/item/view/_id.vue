@@ -116,13 +116,15 @@ export default {
                     this.form = Response.data;
                     cookie.set("order_item_count",Response.data.item_count)
                     cookie.set("order_item_amount",Response.data.item_amount)
+                    this.$store.commit('setItemCount',Response.data.item_count)
+                    this.$store.commit('setItemAmount',Response.data.item_amount)
+
                     if(this.order_no==""){
                         this.order_no=Response.data.sales_order_number
-                        cookie.set("order_no",this.order_no)                        
-                    } else {
-                        this.order_no=Response.data.sales_order_number
-                        cookie.set("order_no",this.order_no)
                     }           
+                    this.order_no=Response.data.sales_order_number
+                    cookie.set("order_no",this.order_no)
+                    this.$store.commit('setOrderNo',this.order_no)
                     this.$toast.show("Success data sudah ditambahkan di kantong belanja anda")
                     //window.open("/cart","_self")
                     this.$router.push("/cart")

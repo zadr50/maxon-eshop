@@ -26,10 +26,11 @@ export default {
         cookie.delete("cookie_item_picture")
         cookie.delete("siteUrl2")
         cookie.delete("category")
+        this.$store.commit('setUserId',"")
+        this.$store.commit('setUserName',"")
+        this.$store.commit('setLoggedIn',false)
 
-        //window.open("/","_self")
-        this.$route.push("/")
-        this.$toast.show("Logout Success")
+        window.open("/","_self")
     }
 }
 </script>

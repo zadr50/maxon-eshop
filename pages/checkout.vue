@@ -92,7 +92,7 @@ export default {
     },
     mounted() {
         this.sales_order_number=cookie.get("order_no");
-        this.rekening=cookie.get("rekening") || "123.121.124.124"
+        this.rekening=cookie.get("rekening") || "2400 0920 98"
         this.rekening_info=cookie.get("rekening_info") || "<p>Bank Centeral Asia (BCA)</p><p>Andri Andriana</p>"
         this.loadSalesOrder()
     },
@@ -128,6 +128,9 @@ export default {
                     cookie.delete("baseUrl")
                     cookie.delete("user_info")
                     cookie.delete("user_info")
+                this.$store.commit('setOrderNo',"")
+                this.$store.commit('setItemAmount',0)
+                this.$store.commit('setItemCount',0)
 
 
 

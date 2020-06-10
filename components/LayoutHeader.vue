@@ -9,14 +9,14 @@
               </el-col>
               <el-col :span=13 :xs=23 >
                 <span class='el-icon-shopping-cart-2' style='font-size:20px;'></span> 
-                ({{item_cart_count}} item) - Rp. {{Number(item_cart_amount).toLocaleString()}}            
+                ({{$store.state.itemCartCount}} item) - Rp. {{Number($store.state.itemCartAmount).toLocaleString()}}            
               </el-col>
             </el-row>
           </el-col>
           <el-col :span='13' :xs=24 :sm=9 align="right">
             <span  v-loading="loading" />
-            <span> User: {{username}} </span>
-             <span v-if="isLoggedIn=='false' || isLoggedIn=='' || isLoggedIn==null">
+            <span> User: {{$store.state.username}} </span>
+             <span v-if="$store.state.loggedIn==false">
               <nuxt-link to="/login">
                   <span class='el-icon-user' style='font-size:20px;'></span>Log In 
               </nuxt-link>
@@ -25,7 +25,7 @@
               </nuxt-link>
              </span>
              
-              <nuxt-link v-if="isLoggedIn=='true'" to="/login/logout">
+              <nuxt-link v-if="$store.state.loggedIn==true" to="/login/logout">
                 <span class='el-icon-user' style='font-size:20px;'></span> Log Out 
             </nuxt-link>
             <span @click="drawer = true" class="el-icon-notebook-2" style="font-size:20px;cursor:pointer"/>  
@@ -97,24 +97,24 @@ export default {
     components: {
         'sidebar':menu
     },
+    props: [
+    ],
+    watch: {
+    },
     data() {
       return {
         nama_toko:'Toko MyPos',
         slogan:'Online Shop Anda',
         phone:'000000000',
         search:'',
-          drawer: false,
-          item_cart_count:0,
-          item_cart_amount:0,
-          isLoggedIn: false,
-          username:'',
-          loading:true,
-          active: false
+        drawer: false,
+        isLoggedIn: false,
+        username:'',
+        loading:true,
+        active: false
       };
     },
     mounted: function(){
-      this.item_cart_count=cookie.get("order_item_count",0)
-      this.item_cart_amount=cookie.get("order_item_amount",0)
       this.isLoggedIn=cookie.get("logged_in")
       var user=cookie.get("user_info")
       this.username=cookie.get("username")
@@ -124,6 +124,8 @@ export default {
       }
       this.loading=false
       this.search=cookie.get("search")
+      this.$store.commit('setOrderNo',cookie.get("order_no"))
+
       this.loadToko();
     },
     methods: {
